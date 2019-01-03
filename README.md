@@ -36,9 +36,9 @@ This project is a front-end only application designed to search for certain rest
     * [GitHub Profile](https://github.com/seanmcquaid)
 * Greg Roques
     * Contributions:
-        * Responsive Design
+        * Conceptual Design, Responsive Design
     * [GitHub Profile](https://github.com/GregRoques)
 * Michael Rubino
     * Contributions:
-        * Initial Conceptual Design, Responsive Design
+        * Conceptual Design, Responsive Design
     * [GitHub Profile](https://github.com/rubinoAM)
