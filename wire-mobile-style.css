@@ -147,7 +147,12 @@ input:focus, select:focus{
     margin:0.25rem 0 0 0;
 }
 
-.main-head img{
+.main-head-image{
+    display:flex;
+    align-self:center;
+}
+
+.main-head-image img{
     border-radius:0.375rem;
 }
 
