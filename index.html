@@ -11,11 +11,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://via.placeholder.com/40" />
+            <img class="header-logo" src="/images/mag_normal.svg" />
             <span class="header-title">MealSleuth</span>
         </div>
         <div class="tagline-box">
-            <img src="https://via.placeholder.com/100" />
+            <img class="tagline-logo" src="/images/mag_normal.svg" />
             <span class="tagline-title">MealSleuth</span>
             <span class="tagline-text">Ham hock t-bone, ut ball tip velit aute anim. Bresaola swine salami picanha turducken cupim quis kielbasa sausage veniam fugiat leberkas.</span>
         </div>
@@ -33,11 +33,13 @@
                     <option value="4">$61 & Over</option>
                 </select>
             </div>
-            <button id="search-btn">🔍</button>
+            <button id="search-btn"><img class="button-logo" src="/images/mag_white.svg"></button>
         </div>
         <div class="results-box">
-            <span class="results-header">RESULTS</span>
             <div class="results-main">
+                <div class="results-header">
+                    <span>RESULTS</span>
+                </div>
                 <div class="main-head">
                     <div class="main-head-image">
                         <img src="https://via.placeholder.com/130"/>
@@ -49,10 +51,11 @@
                         <div class="main-score">★★★★☆</div>
                     </div>
                 </div>
+
                 <div class="main-body">
                     <div class="m-body-row">
                         <span class="m-body-h1">Type of Food</span>
-                        <span class="m-body-p">Food, food, food, et cetera.</span>
+                        <span class="m-body-p">Food</span>
                     </div>
                     <div class="m-body-row">
                         <span class="m-body-h1">Price Range</span>
@@ -65,6 +68,7 @@
                 </div>
                 <button id="visit-btn">VISIT</button>
             </div>
+
             <div class="results-review">
                 <div class="review-header">
                     <span>Latest Review</span>
@@ -75,6 +79,7 @@
                     <div class="review-score">★★☆☆☆</div>
                 </div>
             </div>
+
         </div>
         <div class="footer">Copyright © 2019</div>
     </div>
@@ -84,5 +89,5 @@
 
 <!-- To Do
 1) Background image is the whole page on the desktop version
-2) 
+2) move around results to inline block 
 -->
