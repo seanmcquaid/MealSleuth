@@ -1,6 +1,6 @@
 // ======================================================================================================================= Generate Search Result
 
-const key= "AIzaSyB8S65sZlmJq1Yh6pLBEAcY_-oLCSXoJqo"
+
 
 // ================== Define Latitute and Longitute from current location
 
