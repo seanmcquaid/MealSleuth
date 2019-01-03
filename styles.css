@@ -82,6 +82,7 @@ input:focus, select:focus{
 .search-box{
     margin:0.75rem auto 0;
     width:86%;
+    min-width: 14rem;
     max-width: 30rem;
     border:3px solid #f26522;
     display:flex;
@@ -182,6 +183,10 @@ input:focus, select:focus{
     text-align:center;
     margin:0.25rem 0 0 0;
     padding: 0.5rem;
+}
+
+.main-head div {
+    margin: 0.25rem;
 }
 
 .main-head-image{
@@ -319,5 +324,13 @@ input:focus, select:focus{
 }
 
 @media (min-width: 40rem){
-    /*  */
+    .main-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-box, .results-box {
+        margin: 1rem;
+    }
 }
