@@ -1,0 +1,277 @@
+body{
+    margin:0;padding:0;
+}
+
+*::selection{
+    background-color:#f26522;
+    color: #fff;
+}
+
+input:focus, select:focus{
+    outline:none;
+    box-shadow:1px 1px 0.25rem #f26522;
+}
+
+.container{
+    margin:0 auto;
+    width:400px;
+    border:1px solid olive;
+}
+
+.header{
+    width:100%;
+    background-color: #282421;
+    color: white;
+    display: flex;
+    align-items:center;
+}
+
+.header img, .header .header-title{
+    padding:0.5rem 0.375rem;
+}
+
+.header-title{
+    font-size:1.75rem;
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+}
+
+.tagline-box{
+    background-image:url("https://loremflickr.com/g/320/240/dog");
+    background-size:cover;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    padding:1rem;
+    color:white;
+}
+
+.tagline-title{
+    font-size:1.75rem;
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    margin:0.25rem 0;
+}
+
+.tagline-text{
+    font-family:'Raleway', sans-serif;
+    font-weight:400;
+    font-size:0.875rem;
+    text-align:center;
+}
+
+.search-box{
+    margin:0.75rem auto 0;
+    width:95%;
+    border:3px solid #f26522;
+    display:flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+}
+
+.search-header{
+    border-radius:0.25rem 0.25rem 0 0;
+    background-color:#f26522;
+    width:100%;
+    padding:0.375rem 0;
+}
+
+.search-header span{
+    margin-left:0.75rem;
+    color:white;
+    font-size: 1.25rem;
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+}
+
+.search-inputs{
+    padding:0.75rem 0;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+}
+
+.input-field{
+    font-family:'Raleway', sans-serif;
+    font-size:1.25rem;
+    width:92%;
+    margin:0.25rem auto;
+    padding:0.375rem 0.0625rem;
+    border:1px solid #f26522;
+    color:#f26522;
+}
+
+.input-field::placeholder{
+    color:#f26522;
+}
+
+#search-btn{
+    width:20%;
+    margin:0 auto 1rem;
+    background-color:#f26522;
+    border:none;
+    border-radius:0.25rem;
+    color:white;
+    font-size:1.75rem;
+}
+
+.results-box{
+    width:95%;
+    margin:0.75rem auto 1.5rem;
+}
+
+.results-header{
+    color:#f26522;
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:1.25rem;
+    margin-left:0.5rem;
+}
+
+.results-main{
+    width:95%;
+    display: flex;
+    flex-direction: column;
+    margin:0 auto;
+    padding:0.375rem 0;
+    border:3px solid #f26522;
+    border-radius: 0.5rem;
+}
+
+.main-head{
+    width:95%;
+    display:flex;
+    align-self:center;
+    text-align:center;
+    margin:0.25rem 0 0 0;
+}
+
+.main-head img{
+    border-radius:0.375rem;
+}
+
+.main-head-details{
+    width:60%;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+}
+
+.result-name, .result-site{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+}
+
+.result-name{
+    font-size:1.125rem;
+}
+
+.result-site{
+    font-size:0.875rem;
+}
+
+.result-add{
+    font-family:'Raleway', sans-serif;
+    font-weight:400;
+}
+
+.result-name, .result-site, .result-add{
+    margin-bottom:0.375rem;
+}
+
+.main-score{
+    font-size:1.125rem;
+    color:#f26522;
+}
+
+#visit-btn{
+    margin:0 auto 0.25rem;
+    color:#fff;
+    background-color:#f26522;
+    border:none;
+    border-radius:0.25rem;
+    padding:0.25rem 1.25rem;
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size: 1rem;
+}
+
+.main-body{
+    width:95%;
+    margin:0 auto;
+}
+
+.m-body-row{
+    display:flex;
+    justify-content: space-between;
+    margin:1.25rem 0;
+}
+
+.m-body-h1{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+}
+
+.m-body-p{
+    font-family:'Raleway', sans-serif;
+    font-weight:400;
+}
+
+.results-review{
+    width:82%;
+    margin:0 auto;
+    border:3px solid #f26522;
+    border-radius: 0 0 0.5rem 0.5rem;
+    display:flex;
+    flex-direction: column;
+}
+
+.review-header{
+    background-color:#f26522;
+    width:100%;
+    padding:0.375rem 0;
+}
+
+.review-header span{
+    color:white;
+    font-family:'Montserrat', sans-serif;
+    font-weight:500;
+    font-size:0.875rem;
+    margin-left:0.5rem;
+}
+
+.review-body{
+    display:flex;
+    flex-direction: column;
+    justify-content:column;
+    align-items: center;
+    width:90%;
+}
+
+.review-text{
+    font-family:'Raleway', sans-serif;
+    text-align:center;
+    margin:1rem 0 1rem 12%;
+}
+
+.review-username{
+    font-family:'Montserrat', sans-serif;
+    font-weight:700;
+    font-size:1rem;
+}
+
+.review-score{
+    color:#f26522;
+    margin-bottom:0.625rem;
+    font-size:1.25rem;
+}
+
+.footer{
+    background-color:#282421;
+    color:#fff;
+    font-family:'Montserrat', sans-serif;
+    font-weight:500;
+    text-align:center;
+    padding:1.5rem 0;
+}
