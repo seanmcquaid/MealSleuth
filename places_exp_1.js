@@ -1,5 +1,3 @@
-console.log("WOOF");
-
 function initMap() {
     const latLng = {lat: -33.8670522, lng: 151.1957362};
     const map = new google.maps.Map(document.getElementById('map'), {
@@ -8,16 +6,33 @@ function initMap() {
     });
     
     const mapURL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=AIzaSyB2RPBv5Q0-RL92TMZMaL8Zob4E37pKWFk`;
+    let placeURL = `https://maps.googleapis.com/maps/api/place/details/json`;
+    let address, reviewer, score, review;
 
-    $.getJSON(mapURL,(apiData)=>{
-        //console.log(apiData);
-        let name = apiData.results[0].name;
+    $.getJSON(mapURL,(mapData)=>{
+        //console.log(mapData);
+        let name = mapData.results[0].name;
         $('#field-1').html(name);
 
-        let rating = apiData.results[0].rating;
+        let placeID = mapData.results[0].place_id;
+        placeURL = `${placeURL}?placeid=${placeID}&key=AIzaSyB2RPBv5Q0-RL92TMZMaL8Zob4E37pKWFk`;
+        
+        $.getJSON(placeURL,(placeData)=>{
+            address = placeData.result.adr_address;
+            $('#field-2').html(address);
+
+            reviewer = placeData.result.reviews[placeData.result.reviews.length-1].author_name;
+            score = placeData.result.reviews[placeData.result.reviews.length-1].rating;
+            review = placeData.result.reviews[placeData.result.reviews.length-1].text;
+
+            $('#field-5').html(`${reviewer}: ${score}`);
+            $('#field-6').html(review);
+        });
+
+        let rating = mapData.results[0].rating;
         ratingConversion(rating);
 
-        let price = apiData.results[0].price_level;
+        let price = mapData.results[0].price_level;
         priceConversion(price);
     });
 }
@@ -60,15 +75,15 @@ function ratingConversion(rating){
 
 function priceConversion(price){
     if(price == 1){
-        $('#field-4').html('$');
+        $('#field-4').html('$: Under $10');
     }
     else if (price == 2){
-        $('#field-4').html('$$');
+        $('#field-4').html('$$: $11 to $30');
     }
     else if (price == 3){
-        $('#field-4').html('$$$');
+        $('#field-4').html('$$$: $31 to $60');
     }
     else if (price == 4){
-        $('#field-4').html('$$$$');
+        $('#field-4').html('$$$$: $61 & Over');
     }
 }
