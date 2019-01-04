@@ -3,6 +3,7 @@
     Dark Gray: #282421;
 */
 
+/* General Settings */
 body{
     margin:0;
     padding:0;
@@ -18,6 +19,7 @@ input:focus, select:focus{
     box-shadow:1px 1px 0.25rem #f26522;
 }
 
+/* Initial CSS (Set For Mobile Screens) */
 .container{
     margin:0 auto;
     width:100%;
@@ -25,8 +27,9 @@ input:focus, select:focus{
 
 .header{
     width:100%;
+    height:4rem;
     background-color: #282421;
-    color: white;
+    color: #fff;
     display: flex;
     align-items:center;
     position: fixed;
@@ -57,12 +60,11 @@ input:focus, select:focus{
     justify-content:center;
     padding:1rem;
     margin-top: 3.8rem;
-    color:white;
+    color:#fff;
 }
 
 .tagline-logo {
-    width: 100%;
-    max-width: 6rem;
+    width: 6rem;
 }
 
 .tagline-title{
@@ -88,6 +90,7 @@ input:focus, select:focus{
     display:flex;
     flex-direction: column;
     border-radius: 0.5rem;
+    background-color:#fff;
 }
 
 .search-header{
@@ -99,7 +102,7 @@ input:focus, select:focus{
 
 .search-header span{
     margin-left:0.75rem;
-    color:white;
+    color:#fff;
     font-size: 1.25rem;
     font-family:'Montserrat', sans-serif;
     font-weight:700;
@@ -137,7 +140,7 @@ input:focus, select:focus{
     background-color:#f26522;
     border:none;
     border-radius:0.25rem;
-    color:white;
+    color:#fff;
     font-size:1.75rem;
 }
 
@@ -161,7 +164,7 @@ input:focus, select:focus{
 
 .results-header span{
     margin-left:0.75rem;
-    color:white;
+    color:#fff;
     font-size: 1.25rem;
     font-family:'Montserrat', sans-serif;
     font-weight:700;
@@ -174,6 +177,7 @@ input:focus, select:focus{
     margin:0 auto;
     border:3px solid #f26522;
     border-radius: 0.5rem;
+    background-color:white;
 }
 
 .main-head{
@@ -281,7 +285,7 @@ input:focus, select:focus{
 }
 
 .review-header span{
-    color:white;
+    color:#fff;
     font-family:'Montserrat', sans-serif;
     font-weight:500;
     font-size:0.875rem;
@@ -293,13 +297,13 @@ input:focus, select:focus{
     flex-direction: column;
     justify-content:column;
     align-items: center;
-    width:90%;
+    background-color:white;
 }
 
 .review-text{
     font-family:'Raleway', sans-serif;
     text-align:center;
-    margin:1rem 0 1rem 12%;
+    margin:1rem 0.5rem;
 }
 
 .review-username{
@@ -323,14 +327,49 @@ input:focus, select:focus{
     padding:1.5rem 0;
 }
 
-@media (min-width: 40rem){
-    .main-content {
+@media (min-width: 40rem){ /* CSS for Tablet Screens */
+    .main-content{
         display: flex;
+        flex-direction:column;
         align-items: center;
         justify-content: center;
     }
 
-    .search-box, .results-box {
+    .search-box, .results-box{
         margin: 1rem;
     }
+
+    .tagline-box{
+        background:none;
+    }
+
+    .page-body{
+        background-image:url("https://loremflickr.com/g/320/240/dog");
+        background-size:cover;
+    }
+}
+
+@media screen and (min-width: 64rem){ /* CSS for Desktop Screens */
+    .main-content {
+        flex-direction:row;
+    }
+
+    .tagline-box{
+        width:60%;
+        margin:4rem auto 2rem;
+    }
+
+    .tagline-logo{
+        width:8rem;
+    }
+
+    .tagline-title{
+        font-size: 3rem;
+    }
+
+    .tagline-text{
+        font-size: 1.25rem;
+    }
+
+    .results-box{display:none;}
 }
