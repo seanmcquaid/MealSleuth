@@ -13,16 +13,14 @@ if (navigator.geolocation) {
     })
 }
 
+console.log(lat);
+console.log(lon);
+
 
 // ================== Pull price point from Search
 
-<<<<<<< HEAD
-    $('.search-btn').submit(()=>{
+    $('#search-btn').submit(()=>{
         // e.preventDefault();
-=======
-$('.input-group').submit((e)=>{
-    e.preventDefault();
->>>>>>> origin
 
     // ================== Google Places URL STart
     
