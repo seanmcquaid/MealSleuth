@@ -44,7 +44,7 @@ if (navigator.geolocation) {
 function chooseBackground(){
 
     // ========================= Select Random Number for BG Image
-    const backgroundImage = (Math.floor(Math.random() * Math.floor(3))) + 1;
+    const backgroundImage = (Math.floor(Math.random() * Math.floor(8))) + 1;
 
 
     document.querySelector('.tagline-box').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
