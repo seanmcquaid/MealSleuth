@@ -51,12 +51,10 @@ function chooseBackground(){
         if(size.matches){
             document.querySelector('.page-body').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
             document.querySelector('.tagline-box').style.backgroundImage = `none`;
-            console.log(backgroundImage);
         }
         else{
             document.querySelector('.tagline-box').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
             document.querySelector('.page-body').style.backgroundImage = `none`;
-            console.log(backgroundImage);
         }
     }
 
