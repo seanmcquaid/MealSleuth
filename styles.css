@@ -1,8 +1,9 @@
 /*  Standard Colors:
-    Orange: #f26522
-    Dark Gray: #282421;
+    Orange:#f26522
+    Dark Gray:#282421;
 */
 
+/* General Settings */
 body{
     margin:0;
     padding:0;
@@ -10,7 +11,11 @@ body{
 
 *::selection{
     background-color:#f26522;
-    color: #fff;
+    color:#fff;
+}
+
+select{
+    background-color:#fff;
 }
 
 input:focus, select:focus{
@@ -18,19 +23,22 @@ input:focus, select:focus{
     box-shadow:1px 1px 0.25rem #f26522;
 }
 
+/* Initial CSS (Set For Mobile Screens) */
 .container{
     margin:0 auto;
     width:100%;
-    border:1px solid olive;
 }
 
 .header{
     width:100%;
-    background-color: #282421;
-    color: white;
-    display: flex;
+    height:4rem;
+    background-color:#282421;
+    color:#fff;
+    display:flex;
     align-items:center;
-    position: fixed;
+    position:fixed;
+    top:0;
+    box-shadow:0 1px 0.5rem #000;
 }
 
 .header img, .header .header-title{
@@ -44,25 +52,24 @@ input:focus, select:focus{
 }
 
 .header-logo {
-    width: 100%;
-    max-width: 2.2rem;
+    width:100%;
+    max-width:2.2rem;
 }
 
 .tagline-box{
     background-image:url("https://loremflickr.com/g/320/240/dog");
     background-size:cover;
     display:flex;
-    flex-direction: column;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
     padding:1rem;
-    margin-top: 3.8rem;
-    color:white;
+    margin-top:3.8rem;
+    color:#fff;
 }
 
 .tagline-logo {
-    width: 100%;
-    max-width: 6rem;
+    width:6rem;
 }
 
 .tagline-title{
@@ -70,24 +77,27 @@ input:focus, select:focus{
     font-family:'Montserrat', sans-serif;
     font-weight:700;
     margin:0.25rem 0;
+    text-shadow: 1px 1px 0.5rem #000;
 }
 
 .tagline-text{
     font-family:'Raleway', sans-serif;
     font-weight:400;
-    font-size:0.875rem;
+    font-size:1rem;
     text-align:center;
+    text-shadow: 1px 1px 0.5rem #000;
 }
 
 .search-box{
     margin:0.75rem auto 0;
     width:86%;
-    min-width: 14rem;
-    max-width: 30rem;
+    min-width:14rem;
+    max-width:30rem;
     border:3px solid #f26522;
     display:flex;
-    flex-direction: column;
-    border-radius: 0.5rem;
+    flex-direction:column;
+    border-radius:0.5rem;
+    background-color:#fff;
 }
 
 .search-header{
@@ -99,8 +109,8 @@ input:focus, select:focus{
 
 .search-header span{
     margin-left:0.75rem;
-    color:white;
-    font-size: 1.25rem;
+    color:#fff;
+    font-size:1.25rem;
     font-family:'Montserrat', sans-serif;
     font-weight:700;
 }
@@ -109,13 +119,13 @@ input:focus, select:focus{
     padding:0.75rem 0;
     display:flex;
     flex-direction:column;
-    justify-content: center;
+    justify-content:center;
 }
 
 .input-field{
     font-family:'Raleway', sans-serif;
     font-size:1.25rem;
-    width: 90%;
+    width:90%;
     margin:0.25rem auto;
     padding:0.375rem 0.0625rem;
     border:1px solid #f26522;
@@ -126,29 +136,33 @@ input:focus, select:focus{
     color:#f26522;
 }
 
+.btn:hover{
+    border-radius:0.5rem;
+}
+
 #search-btn{
-    display: flex;
-    align-content: center;
-    justify-content: center;
+    display:flex;
+    align-content:center;
+    justify-content:center;
     width:30%;
-    min-width: 2rem;
-    max-width: 6em;
+    min-width:2rem;
+    max-width:6em;
     margin:0 auto 1rem;
     background-color:#f26522;
     border:none;
     border-radius:0.25rem;
-    color:white;
+    color:#fff;
     font-size:1.75rem;
 }
 
 .button-logo {
-    width: 20%;
-    padding: 0.25em 0;
+    width:20%;
+    padding:0.25em 0;
 }
 
 .results-box{
     width:86%;
-    max-width: 30rem;
+    max-width:30rem;
     margin:0.75rem auto 1.5rem;
 }
 
@@ -156,37 +170,37 @@ input:focus, select:focus{
     border-radius:0.25rem 0.25rem 0 0;
     background-color:#f26522;
     width:100%;
-    /* padding:0.375rem 0; */
+    padding:0.375rem 0;
 }
 
 .results-header span{
     margin-left:0.75rem;
-    color:white;
-    font-size: 1.25rem;
+    color:#fff;
+    font-size:1.25rem;
     font-family:'Montserrat', sans-serif;
     font-weight:700;
 }
 
 .results-main{
     width:100%;
-    display: flex;
-    flex-direction: column;
+    display:flex;
+    flex-direction:column;
     margin:0 auto;
     border:3px solid #f26522;
-    border-radius: 0.5rem;
+    border-radius:0.5rem;
+    background-color:white;
 }
 
 .main-head{
-    width:95%;
     display:flex;
-    align-self:center;
+    justify-content: space-evenly;
     text-align:center;
     margin:0.25rem 0 0 0;
-    padding: 0.5rem;
+    padding:0.5rem;
 }
 
 .main-head div {
-    margin: 0.25rem;
+    margin:0.25rem;
 }
 
 .main-head-image{
@@ -196,10 +210,11 @@ input:focus, select:focus{
 
 .main-head-image img{
     border-radius:0.375rem;
+    height:8.125rem;
+    width:8.125rem;
 }
 
 .main-head-details{
-    width:60%;
     margin:0 auto;
     display:flex;
     flex-direction:column;
@@ -233,7 +248,7 @@ input:focus, select:focus{
 }
 
 #visit-btn{
-    margin:0 auto 0.25rem;
+    margin:0 auto 0.5rem;
     color:#fff;
     background-color:#f26522;
     border:none;
@@ -241,7 +256,7 @@ input:focus, select:focus{
     padding:0.25rem 1.25rem;
     font-family:'Montserrat', sans-serif;
     font-weight:700;
-    font-size: 1rem;
+    font-size:1.5rem;
 }
 
 .main-body{
@@ -251,7 +266,7 @@ input:focus, select:focus{
 
 .m-body-row{
     display:flex;
-    justify-content: space-between;
+    justify-content:space-between;
     margin:1.25rem 0;
 }
 
@@ -269,9 +284,9 @@ input:focus, select:focus{
     width:82%;
     margin:0 auto;
     border:3px solid #f26522;
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius:0 0 0.5rem 0.5rem;
     display:flex;
-    flex-direction: column;
+    flex-direction:column;
 }
 
 .review-header{
@@ -281,7 +296,7 @@ input:focus, select:focus{
 }
 
 .review-header span{
-    color:white;
+    color:#fff;
     font-family:'Montserrat', sans-serif;
     font-weight:500;
     font-size:0.875rem;
@@ -290,16 +305,16 @@ input:focus, select:focus{
 
 .review-body{
     display:flex;
-    flex-direction: column;
-    justify-content:column;
-    align-items: center;
-    width:90%;
+    flex-direction:column;
+    border-radius:0 0 0.375rem 0.375rem;
+    align-items:center;
+    background-color:white;
 }
 
 .review-text{
     font-family:'Raleway', sans-serif;
     text-align:center;
-    margin:1rem 0 1rem 12%;
+    margin:1rem 0.5rem;
 }
 
 .review-username{
@@ -316,21 +331,209 @@ input:focus, select:focus{
 
 .footer{
     background-color:#282421;
-    color:#fff;
-    font-family:'Montserrat', sans-serif;
-    font-weight:500;
     text-align:center;
     padding:1.5rem 0;
 }
 
-@media (min-width: 40rem){
-    .main-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+.footer span{
+    color:#fff;
+    font-family:'Montserrat', sans-serif;
+    font-weight:500;
+}
+
+@media (min-width:40rem){ /* CSS for Tablet Screens*/
+    .page-body{
+        background-image:url("https://loremflickr.com/g/320/240/dog");
+        background-size:cover;
     }
 
-    .search-box, .results-box {
-        margin: 1rem;
+    .main-content{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .search-box, .results-box{
+        margin:1rem;
+        max-width:45rem;
+    }
+
+    .tagline-box{
+        background:none;
+        width:80%;
+        margin:4rem auto 1rem;
+    }
+
+    .tagline-logo{
+        margin-top:0.75rem;
+        width:9rem;
+    }
+
+    .tagline-title{
+        font-size:2.5rem;
+    }
+
+    .tagline-text{
+        font-size:1.25rem;
+        line-height: 1.75rem;
+    }
+
+    .search-header span{
+        font-size:1.75rem;
+    }
+
+    select{
+        height:2.25rem;
+    }
+
+    .results-header span{
+        font-size:1.5rem;
+    }
+    
+    .main-head-image img{
+        height:10rem;
+        width:10rem;
+    }
+
+    .result-name{
+        font-size:1.75rem;
+    }
+
+    .result-site{
+        font-size:1rem;
+    }
+
+    .result-add{
+        font-size:1.125rem;
+    }
+
+    .main-score{
+        font-size:1.5rem;
+    }
+
+    .m-body-row{
+        margin:1.75rem 0;
+    }
+
+    .m-body-h1, .m-body-p{
+        font-size:1.25rem;
+    }
+}
+
+@media screen and (min-width:64rem){ /* CSS for Desktop Screens */
+    .page-body{
+        padding-bottom:1.25rem;
+    }
+
+    .main-content {
+        flex-direction:row;
+    }
+
+    .tagline-box{
+        width:60%;
+        margin:4rem auto 1rem;
+    }
+
+    .tagline-logo{
+        width:8rem;
+    }
+
+    .tagline-title{
+        font-size:3rem;
+    }
+
+    .tagline-text{
+        font-size:1.25rem;
+    }
+
+    .search-box{
+        max-width:25%;
+    }
+    .search-header span{
+        font-size:1.5rem;
+    }
+
+    .input-field{
+        width:85%;
+        font-size:1rem;
+    }
+
+    select{
+        height:2rem;
+    }
+
+    #search-btn{
+        max-width:10rem;
+    }
+
+    .results-box{
+        max-width:45rem;
+        display:flex;
+        flex-direction:row;
+    }
+
+    .results-main{
+        width:60rem;
+        border-radius: 0.5rem 0 0.5rem 0.5rem;
+    }
+
+    .results-header{
+        border-top-right-radius: 0;
+    }
+
+    .results-header span{
+        font-size:1.5rem;
+    }
+
+    .main-head-image img{
+        height:9rem;
+        width:9rem;
+    }
+
+    .result-name{
+        font-size:1.25rem;
+    }
+
+    .result-site{
+        font-size:0.875rem;
+    }
+
+    .result-add{
+        font-size:1rem;
+    }
+
+    .main-score{
+        font-size:1.25rem;
+    }
+
+    .m-body-row{
+        margin:1.25rem 0;
+    }
+
+    .m-body-h1, .m-body-p{
+        font-size:1.125rem;
+    }
+    
+    .results-review{
+        border-radius:0 0.5rem 0.5rem 0;
+        height:50%;
+        max-height:90%;
+        position:relative;
+        right:0.125rem;
+    }
+
+    .review-header span{
+        font-size:1rem;
+    }
+
+    .review-body{
+        height:100%;
+        border-bottom-right-radius: 0.375rem;
+    }
+
+    #visit-btn{
+        font-size:1.25rem;
+        margin-bottom:1rem;
     }
 }
