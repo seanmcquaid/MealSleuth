@@ -9,7 +9,7 @@
     * Authors
 
 ## Description
-This project is a front-end only application designed to search for certain restaurants based on user input like food type, location, price range, open time, etc. The application returns the results most closely matching the user's input and renders it within the browser. The user can then get directions to the resulting location(s) via Google Maps.
+This project is a front-end only application designed to search for certain restaurants based on user input like location, price range, etc. The application returns the results most closely matching the user's input and renders it within the browser. The user can then get directions to the resulting location(s) via Google Maps.
 
 ### Features
 * Renders search results into an array that is displayed beneath the search input within a separate container.
@@ -27,18 +27,19 @@ This project is a front-end only application designed to search for certain rest
 
 ## Stretch Goals
 * Display map and directions within results that shows user's location in proximity to restaurant location.
+* Enable search by type of food.
 * Autocompleting search input for food type.
 
 ## Authors
 * Sean McQuaid
     * Contributions:
-        * Concept, Project Management
+        * Concept, Project Management, Responsive Design
     * [GitHub Profile](https://github.com/seanmcquaid)
 * Greg Roques
     * Contributions:
-        * Conceptual Design, Responsive Design
+        * Desktop Wireframing, API Implementation
     * [GitHub Profile](https://github.com/GregRoques)
 * Michael Rubino
     * Contributions:
-        * Conceptual Design, Responsive Design
+        * Mobile Wireframing, CSS, API Implementation
     * [GitHub Profile](https://github.com/rubinoAM)
