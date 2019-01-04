@@ -1,11 +1,5 @@
-/*  Standard Colors:
-    Orange: #f26522
-    Dark Gray: #282421;
-*/
-
 body{
-    margin:0;
-    padding:0;
+    margin:0;padding:0;
 }
 
 *::selection{
@@ -20,7 +14,7 @@ input:focus, select:focus{
 
 .container{
     margin:0 auto;
-    width:100%;
+    width:400px;
     border:1px solid olive;
 }
 
@@ -30,7 +24,6 @@ input:focus, select:focus{
     color: white;
     display: flex;
     align-items:center;
-    position: fixed;
 }
 
 .header img, .header .header-title{
@@ -43,11 +36,6 @@ input:focus, select:focus{
     font-weight:700;
 }
 
-.header-logo {
-    width: 100%;
-    max-width: 2.2rem;
-}
-
 .tagline-box{
     background-image:url("https://loremflickr.com/g/320/240/dog");
     background-size:cover;
@@ -56,13 +44,7 @@ input:focus, select:focus{
     align-items:center;
     justify-content:center;
     padding:1rem;
-    margin-top: 3.8rem;
     color:white;
-}
-
-.tagline-logo {
-    width: 100%;
-    max-width: 6rem;
 }
 
 .tagline-title{
@@ -81,9 +63,7 @@ input:focus, select:focus{
 
 .search-box{
     margin:0.75rem auto 0;
-    width:86%;
-    min-width: 14rem;
-    max-width: 30rem;
+    width:95%;
     border:3px solid #f26522;
     display:flex;
     flex-direction: column;
@@ -115,7 +95,7 @@ input:focus, select:focus{
 .input-field{
     font-family:'Raleway', sans-serif;
     font-size:1.25rem;
-    width: 90%;
+    width:92%;
     margin:0.25rem auto;
     padding:0.375rem 0.0625rem;
     border:1px solid #f26522;
@@ -127,12 +107,7 @@ input:focus, select:focus{
 }
 
 #search-btn{
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    width:30%;
-    min-width: 2rem;
-    max-width: 6em;
+    width:20%;
     margin:0 auto 1rem;
     background-color:#f26522;
     border:none;
@@ -141,37 +116,25 @@ input:focus, select:focus{
     font-size:1.75rem;
 }
 
-.button-logo {
-    width: 20%;
-    padding: 0.25em 0;
-}
-
 .results-box{
-    width:86%;
-    max-width: 30rem;
+    width:95%;
     margin:0.75rem auto 1.5rem;
 }
 
 .results-header{
-    border-radius:0.25rem 0.25rem 0 0;
-    background-color:#f26522;
-    width:100%;
-    /* padding:0.375rem 0; */
-}
-
-.results-header span{
-    margin-left:0.75rem;
-    color:white;
-    font-size: 1.25rem;
+    color:#f26522;
     font-family:'Montserrat', sans-serif;
     font-weight:700;
+    font-size:1.25rem;
+    margin-left:0.5rem;
 }
 
 .results-main{
-    width:100%;
+    width:95%;
     display: flex;
     flex-direction: column;
     margin:0 auto;
+    padding:0.375rem 0;
     border:3px solid #f26522;
     border-radius: 0.5rem;
 }
@@ -182,11 +145,6 @@ input:focus, select:focus{
     align-self:center;
     text-align:center;
     margin:0.25rem 0 0 0;
-    padding: 0.5rem;
-}
-
-.main-head div {
-    margin: 0.25rem;
 }
 
 .main-head-image{
@@ -321,16 +279,4 @@ input:focus, select:focus{
     font-weight:500;
     text-align:center;
     padding:1.5rem 0;
-}
-
-@media (min-width: 40rem){
-    .main-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .search-box, .results-box {
-        margin: 1rem;
-    }
 }
