@@ -15,8 +15,8 @@ if (navigator.geolocation) {
 
 // ================== Pull price point from Search
 
-    $('.input-group').submit((e)=>{
-        e.preventDefault();
+    $('.search-btn').submit(()=>{
+        // e.preventDefault();
 
         // ================== Google Search URL
         
