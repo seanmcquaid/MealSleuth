@@ -46,10 +46,23 @@ function chooseBackground(){
     // ========================= Select Random Number for BG Image
     const backgroundImage = (Math.floor(Math.random() * Math.floor(8))) + 1;
 
+    // ========================= Determine Where to Attach BG Image Based on Screen Size
+    function checkScreen(size){
+        if(size.matches){
+            document.querySelector('.page-body').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
+            document.querySelector('.tagline-box').style.backgroundImage = `none`;
+            console.log(backgroundImage);
+        }
+        else{
+            document.querySelector('.tagline-box').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
+            document.querySelector('.page-body').style.backgroundImage = `none`;
+            console.log(backgroundImage);
+        }
+    }
 
-    document.querySelector('.tagline-box').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
-    console.log(backgroundImage)
-
+    let param = window.matchMedia("(min-width:40rem)");
+    checkScreen(param);
+    param.addListener(checkScreen);
 }
 
 chooseBackground()
