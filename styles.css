@@ -21,7 +21,6 @@ input:focus, select:focus{
 .container{
     margin:0 auto;
     width:100%;
-    border:1px solid olive;
 }
 
 .header{
@@ -31,6 +30,7 @@ input:focus, select:focus{
     display: flex;
     align-items:center;
     position: fixed;
+    top:0;
 }
 
 .header img, .header .header-title{
