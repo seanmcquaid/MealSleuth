@@ -69,15 +69,20 @@ console.log(lon);
             $.getJSON(detailsUrl,(searchDetails)=>{
 
                 const restName = searchDetails.result.name;
-                    console.log(restName);
-                const address = searchDetails.result.formatted_address;
-                    console.log(address);
-                const restRating = searchDetails.result.rating;
-                    console.log(restRating);
+                    // console.log(restName);
+                $(".result-name").html(`${restName}`);
                 const website = searchDetails.result.website;
-                    console.log(website);
+                    // console.log(website);
+                $(".result-site").html(`${website}`);
+                const address = searchDetails.result.formatted_address;
+                    // console.log(address);
+                $(".result-add").html(`${address}`);
+                const restRating = searchDetails.result.rating;
+                    // console.log(restRating);
+                $(".main-score").html(`${restRating}`);
                 const priceLevel = searchDetails.result.price_level;
-                    console.log(priceLevel);
+                    // console.log(priceLevel);
+                $(".price-range").html(`${priceLevel}`);
 
                 // ================== Review Info
                     // Create Random Number based on number of review length
@@ -87,11 +92,14 @@ console.log(lon);
                     const reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength))) + 1;
 
                     const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name;
-                        console.log(reviewUserName);
+                        // console.log(reviewUserName);
+                    $(".review-username").html(`${reviewUserName}`);
                     const reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
-                        console.log(reviewRating);
+                        // console.log(reviewRating);
+                    $(".review-score").html(`${reviewRating}`);
                     const reviewText = searchDetails.result.reviews[reviewsNumber].text;
-                        console.log(reviewText);
+                        // console.log(reviewText);
+                    $(".review-text").html(`${reviewText}`);
                 
                 // ================== Rest Photo
 
@@ -109,7 +117,8 @@ console.log(lon);
 
                 // Create Photo Url
                 const restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${key}`;
-                    console.log(restPhotoUrl);
+                    // console.log(restPhotoUrl);
+                $(".rest-pic").attr("src", `${restPhotoUrl}`);
 
             });
                 
