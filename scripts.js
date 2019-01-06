@@ -73,7 +73,7 @@ if (navigator.geolocation) {
                 // ==================================================== Assemble Details URL
 
                 const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`
-                    console.log(detailsUrl)
+                    // console.log(detailsUrl)
 
                 // ================= Pull Details URL Data
 
@@ -107,15 +107,15 @@ if (navigator.geolocation) {
                         const reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength))) + 1;
 
                         const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name;
-                        console.log(reviewUserName);
+                        // console.log(reviewUserName);
                         // console.log(reviewUserName);
                         $(".review-username").html(`${reviewUserName}`);
                         const reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
-                            console.log(reviewRating);
+                            // console.log(reviewRating);
                             // console.log(reviewRating);
                         $(".review-score").html(`${reviewRating}`);
                         const reviewText = searchDetails.result.reviews[reviewsNumber].text;
-                            console.log(reviewText);
+                            // console.log(reviewText);
                             // console.log(reviewText);
                         $(".review-text").html(`${reviewText}`);
                     
@@ -136,10 +136,32 @@ if (navigator.geolocation) {
                     // Create Photo Url
                     const restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
                         // console.log(restPhotoUrl)
+                        $(".rest-pic").attr("src", `${restPhotoUrl}`);
 
+                        let nearbyZomato, nearbyGoogle; //Pull from Google first, then pass the results into Zomato
+                // const gooUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lon}&radius=1500&type=restaurant&key=${placesKey}`
+                const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}&sort=real_distance&apikey=${zomatoKey}`;
+                
+                
+                $.getJSON(zomUrl,(zomData)=>{
+                    nearbyZomato = zomData.restaurants;
+                    for(let k=0; k < nearbyZomato.length; k++){
+                        // need the name of the restaraunt from the search, NOT FROM GOOGLE
+                        if(nearbyZomato[k].restaurant.name == restName){
+                            let cuisineOfRest = nearbyZomato[k].restaurant.cuisines.split(",", 1);
+                            $(".cuisine").html(cuisineOfRest);
+                            // this will not update on each click properly
+                            return;
+                        } else {
+                            // console.log('MEOW');
+                            // Cuisine N/A
+                        };
+                    }
+                    });
                 });
     });
 });
+
 
 // =================================================================================================================== Generate Background Image
 
