@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>MealSleuth</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" sizes="16x16 32x32" type="image/png" href="images/icon.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Raleway" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </head>
@@ -15,86 +16,87 @@
             <img class="header-logo" src="/images/mag_normal.svg" />
             <span class="header-title">MealSleuth</span>
         </div>
-
-        <div class="tagline-box">
-            <img class="tagline-logo" src="/images/mag_normal.svg" />
-            <span class="tagline-title">MealSleuth</span>
-            <span class="tagline-text">Ham hock t-bone, ut ball tip velit aute anim. Bresaola swine salami picanha turducken cupim quis kielbasa sausage veniam fugiat leberkas.</span>
-        </div>
-
-        <div class="main-content">
-            <div class="search-box">
-                <div class="search-header">
-                    <span>SEARCH</span>
-                </div>
-                <div class="search-inputs">
-                    <input class="input-field" type="text" placeholder="Enter food here."/>
-                    <input class="input-field" type="text" placeholder="Enter location here."/>
-                    <select class="input-field">
-                        <option value="1">$10 & Under</option>
-                        <option value="2">$11 - $30</option>
-                        <option value="3">$31 - $60</option>
-                        <option value="4">$61 & Over</option>
-                    </select>
-                </div>
-                <button id="search-btn"><img class="button-logo" src="/images/mag_white.svg"></button>
+        <div class="page-body">
+            <div class="tagline-box">
+                <img class="tagline-logo" src="/images/mag_normal.svg" />
+                <span class="tagline-title">MealSleuth</span>
+                <span class="tagline-text">MealSleuth relieves the pressure of deciding where to dine out. Simply type in what you are craving, how far you are willing to travel and your price point, and let us cook up a spot for you.</span>
             </div>
 
-            <div class="results-box">
-                <div class="results-main">
-                    <div class="results-header">
-                        <span>RESULTS</span>
+            <div class="main-content">
+                <div class="search-box">
+                    <div class="search-header">
+                        <span>SEARCH</span>
                     </div>
-                    <div class="main-head">
-                        <div class="main-head-image">
-                            <img src="https://via.placeholder.com/130"/>
+                    <form class="search-form">
+                        <div class="search-inputs">
+                            <input class="input-field" type="text" placeholder="Enter food here."/>
+                            <input class="input-field" type="text" placeholder="Enter location here."/>
+                            <select class="input-field">
+                                <option value="1">$10 & Under</option>
+                                <option value="2">$11 - $30</option>
+                                <option value="3">$31 - $60</option>
+                                <option value="4">$61 & Over</option>
+                            </select>
                         </div>
-                        <div class="main-head-details">
-                            <div class="result-name">RESTAURANT NAME HERE</div>
-                            <div class="result-site">http://website.com</div>
-                            <div class="result-add">123 N Easy Street, Bldg. E7 Townsville, State 00769</div>
-                            <div class="main-score">★★★★☆</div>
-                        </div>
-                    </div>
-
-                    <div class="main-body">
-                        <div class="m-body-row">
-                            <span class="m-body-h1">Type of Food</span>
-                            <span class="m-body-p">Food</span>
-                        </div>
-                        <div class="m-body-row">
-                            <span class="m-body-h1">Price Range</span>
-                            <span class="m-body-p">$31 - $60</span>
-                        </div>
-                        <div class="m-body-row">
-                            <span class="m-body-h1">Distance</span>
-                            <span class="m-body-p">12.13 miles</span>
-                        </div>
-                    </div>
-                    <button id="visit-btn">VISIT</button>
+                        <button class="btn" id="search-btn"><img class="button-logo" src="/images/mag_white.svg"></button>
+                    </form>
                 </div>
 
-                <div class="results-review">
-                    <div class="review-header">
-                        <span>Latest Review</span>
+                <div class="results-box">
+                    <div class="results-main">
+                        <div class="results-header">
+                            <span>RESULTS</span>
+                        </div>
+                        <div class="main-head">
+                            <div class="main-head-image">
+                                <img class= "rest-pic" src="https://via.placeholder.com/130"/>
+                            </div>
+                            <div class="main-head-details">
+                                <div class="result-name">RESTAURANT NAME HERE</div>
+                                <div class="result-site">http://website.com</div>
+                                <div class="result-add">123 N Easy Street, Bldg. E7 Townsville, State 00769</div>
+                                <div class="main-score">★★★★☆</div>
+                            </div>
+                        </div>
+
+                        <div class="main-body">
+                            <div class="m-body-row">
+                                <span class="m-body-h1">Type of Food</span>
+                                <span class="m-body-p">Food</span>
+                            </div>
+                            <div class="m-body-row">
+                                <span class="m-body-h1">Price Range</span>
+                                <span class="m-body-p price-range">$31 - $60</span>
+                            </div>
+                            <div class="m-body-row">
+                                <span class="m-body-h1">Distance</span>
+                                <span class="m-body-p">12.13 miles</span>
+                            </div>
+                        </div>
+                        <button class="btn" id="visit-btn">VISIT</button>
                     </div>
-                    <div class="review-body">
-                        <div class="review-text">Beef ground round meatloaf laboris magna consectetur cillum. Pastrami sausage ball tip cupidatat tenderloin exercitation. Nisi pastrami chicken ad bacon.</div>
-                        <span class="review-username">USERNAME</span>
-                        <div class="review-score">★★☆☆☆</div>
+
+                    <div class="results-review">
+                        <div class="review-header">
+                            <span>Latest Review</span>
+                        </div>
+                        <div class="review-body">
+                            <div class="review-text">Beef ground round meatloaf laboris magna consectetur cillum. Pastrami sausage ball tip cupidatat tenderloin exercitation. Nisi pastrami chicken ad bacon.</div>
+                            <span class="review-username">USERNAME</span>
+                            <div class="review-score">★★☆☆☆</div>
+                        </div>
                     </div>
+                    
                 </div>
-                
+
             </div>
         </div>
-
-        <div class="footer">Copyright © 2019</div>
+        <div class="footer">
+            <span>Copyright © Sean McQuaid, Greg Roques, and Michael Rubino 2019</span>
+        </div>
     </div>
-    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
-
-<!-- To Do
-1) Background image is the whole page on the desktop version
-2) move around results to inline block 
--->

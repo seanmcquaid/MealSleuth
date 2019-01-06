@@ -20,7 +20,8 @@ This project is a front-end only application designed to search for certain rest
 * Google Places API
 
 ## Challenges and Solutions
-* To be declared...
+* Distance Calculation
+     At one point we had tried implementing the Haversine formula in order to calculate the distance between two pairs of coordinates, but using that formula would only calculate the distance in terms of a straight line between the two points. Given that we needed to calculate the distance in terms of actual traversable terrain (i.e. roads, sidewalks, etc.), this formula would not work for our purposes.
 
 ## MVP
 * To be declared...
@@ -37,7 +38,7 @@ This project is a front-end only application designed to search for certain rest
     * [GitHub Profile](https://github.com/seanmcquaid)
 * Greg Roques
     * Contributions:
-        * Desktop Wireframing, API Implementation
+        * Desktop Wireframing, GoogleAPI Implementation
     * [GitHub Profile](https://github.com/GregRoques)
 * Michael Rubino
     * Contributions:
