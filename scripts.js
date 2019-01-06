@@ -90,7 +90,18 @@ if (navigator.geolocation) {
                     const website = searchDetails.result.website
                         // console.log(website)
                     const priceLevel = searchDetails.result.price_level
-                        // console.log(priceLevel)
+                    let priceDescription
+                    if (priceLevel == 1){
+                        priceDescription = "$10 and Under"
+                    } else if (priceLevel == 2){
+                        priceDescription = "$11 – 30"
+                    } else if (priceLevel == 3){
+                        priceDescription = "$31 – 60"
+                    } else {
+                        priceDescription = "$61 – Over"
+                    }
+                    console.log(priceDescription)
+                    // console.log(priceLevel)
 
                    // ================== Review Info
                         // Create Random Number based on number of review length

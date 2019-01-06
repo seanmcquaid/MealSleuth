@@ -38,7 +38,7 @@ This project is a front-end only application designed to search for certain rest
     * [GitHub Profile](https://github.com/seanmcquaid)
 * Greg Roques
     * Contributions:
-        * Desktop Wireframing, API Implementation
+        * Desktop Wireframing, GoogleAPI Implementation
     * [GitHub Profile](https://github.com/GregRoques)
 * Michael Rubino
     * Contributions:
