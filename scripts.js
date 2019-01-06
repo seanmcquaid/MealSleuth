@@ -1,16 +1,25 @@
-// ================== Define Latitute and Longitute from current location
+// ================== Capture Current Location
 
 let lat
 let lon
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-        lat = position.coords.latitude,
-        lon = position.coords.longitude
+    lat = position.coords.latitude,
+    lon = position.coords.longitude
+
+    const myAddressUrl=`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${placesKey}`
+    // console.log(myAddressUrl)
+    $.getJSON(myAddressUrl,(addressData)=>{   
+        const myCurrAddress =  addressData.results[0].formatted_address
+            // console.log(myCurrAddress)
+        document.querySelector('.input-location').placeholder =`${myCurrAddress}`
+    })        
     })
 }
 
 
-    // ================== Pull price point from Search
+
+// ========================================= =======================  Pull price point from Search
 
     $('.search-form').submit((e)=>{
         e.preventDefault();
@@ -21,21 +30,21 @@ if (navigator.geolocation) {
         
 
             // ================== Generate Parameters for Google Nearby Search URL
-            const searchType = "nearbysearch"
-
+                const currLocation = `${lat},${lon}`
+                const searchType = "nearbysearch"
                 const language = "en"
                 const price = $('.input-price').val();
                 const type = "restaurant"
-                const currLocation = `${lat},${lon}`
-                    // console.log(currLocation)
                 const rankby = "distance" 
+
+
         
         // ================== Final Search - Nearby Search URL
     
         // Parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
         
         const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${currLocation}&language=${language}&opennow;`
-            // console.log(googleUrl)
+            console.log(googleUrl)
 
         // =================================== Get Results Data
 
@@ -61,7 +70,7 @@ if (navigator.geolocation) {
                 const placeLocation = `${placeLat},${placeLon}`
 
                 const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${currLocation}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`
-                    // console.log(distanceUrl)     
+                    console.log(distanceUrl)     
                 
                 $.getJSON(distanceUrl,(distInMiles)=>{
                     const placeDistance = distInMiles.rows[0].elements[0].distance.text
@@ -87,6 +96,8 @@ if (navigator.geolocation) {
                     const restRating = searchDetails.result.rating;
                     $(".main-score").html(`${restRating}`);
                     const priceLevel = searchDetails.result.price_level
+                    console.log(price)
+                    console.log(priceLevel)
                     let priceDescription
                     if (priceLevel == 1){
                         priceDescription = "$10 and Under"
@@ -97,7 +108,7 @@ if (navigator.geolocation) {
                     } else if (priceLevel == 4) {
                         priceDescription = "$61 – Over"
                     } else {
-                        priceDescription = "undefined"
+                        priceDescription = "Pricing Unavailable"
                     }
                     $(".price-range").html(`${priceDescription}`);
 
@@ -109,15 +120,15 @@ if (navigator.geolocation) {
                         const reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength))) + 1;
 
                         const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name;
-                        console.log(reviewUserName);
+                        // console.log(reviewUserName);
                         // console.log(reviewUserName);
                         $(".review-username").html(`${reviewUserName}`);
                         const reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
-                            console.log(reviewRating);
+                            // console.log(reviewRating);
                             // console.log(reviewRating);
                         $(".review-score").html(`${reviewRating}`);
                         const reviewText = searchDetails.result.reviews[reviewsNumber].text;
-                            console.log(reviewText);
+                            // console.log(reviewText);
                             // console.log(reviewText);
                         $(".review-text").html(`${reviewText}`);
                     
@@ -125,7 +136,7 @@ if (navigator.geolocation) {
 
                      // Create Random Number based on number of photos results length, just like for reviews
                     const photoLength = (searchDetails.result.photos).length
-                     // console.log(photoLength)
+                    //  console.log(photoLength)
                      const photoNumber = (Math.floor(Math.random() * Math.floor(photoLength))) + 1;
 
                     // Photo Reference Number
