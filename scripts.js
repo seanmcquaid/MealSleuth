@@ -12,7 +12,7 @@ if (navigator.geolocation) {
 
     // ================== Pull price point from Search
 
-    $('.input-group').submit((e)=>{
+    $('.search-form').submit((e)=>{
         e.preventDefault();
 
         // ================== Google Places URL STart
@@ -35,7 +35,7 @@ if (navigator.geolocation) {
         // Parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
         
         const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${currLocation}&language=${language}&opennow;`
-            console.log(googleUrl)
+            // console.log(googleUrl)
 
         // =================================== Get Results Data
 
@@ -61,13 +61,11 @@ if (navigator.geolocation) {
                 const placeLocation = `${placeLat},${placeLon}`
 
                 const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${currLocation}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`
-                    console.log(distanceUrl)     
+                    // console.log(distanceUrl)     
                 
                 $.getJSON(distanceUrl,(distInMiles)=>{
-
                     const placeDistance = distInMiles.rows[0].elements[0].distance.text
-                        console.log(placeDistance)
-
+                        $(".distance").html(`${placeDistance}`);
                 })    
 
 
@@ -80,15 +78,14 @@ if (navigator.geolocation) {
                 // ================= Pull Details URL Data
 
                 $.getJSON(detailsUrl,(searchDetails)=>{
-
-                    const restName = searchDetails.result.name
-                        // console.log(restName)
-                    const address = searchDetails.result.formatted_address
-                        // console.log(address)
-                    const restRating = searchDetails.result.rating
-                        // console.log(restRating)
-                    const website = searchDetails.result.website
-                        // console.log(website)
+                    const restName = searchDetails.result.name;
+                    $(".result-name").html(`${restName}`);
+                    const website = searchDetails.result.website;
+                    $(".result-site").html(`${website}`);
+                    const address = searchDetails.result.formatted_address;
+                    $(".result-add").html(`${address}`);
+                    const restRating = searchDetails.result.rating;
+                    $(".main-score").html(`${restRating}`);
                     const priceLevel = searchDetails.result.price_level
                     let priceDescription
                     if (priceLevel == 1){
@@ -100,8 +97,7 @@ if (navigator.geolocation) {
                     } else {
                         priceDescription = "$61 – Over"
                     }
-                    console.log(priceDescription)
-                    // console.log(priceLevel)
+                    $(".price-range").html(`${priceDescription}`);
 
                    // ================== Review Info
                         // Create Random Number based on number of review length
@@ -110,12 +106,18 @@ if (navigator.geolocation) {
                             // console.log(reviewsLength)
                         const reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength))) + 1;
 
-                        const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name
-                            // console.log(reviewUserName )
-                        const reviewRating = searchDetails.result.reviews[reviewsNumber].rating
-                            // console.log(reviewRating)
-                        const reviewText = searchDetails.result.reviews[reviewsNumber].text
-                            // console.log(reviewText)    
+                        const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name;
+                        console.log(reviewUserName);
+                        // console.log(reviewUserName);
+                        $(".review-username").html(`${reviewUserName}`);
+                        const reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
+                            console.log(reviewRating);
+                            // console.log(reviewRating);
+                        $(".review-score").html(`${reviewRating}`);
+                        const reviewText = searchDetails.result.reviews[reviewsNumber].text;
+                            console.log(reviewText);
+                            // console.log(reviewText);
+                        $(".review-text").html(`${reviewText}`);
                     
                     // ================== Rest Photo
 
@@ -136,8 +138,8 @@ if (navigator.geolocation) {
                         // console.log(restPhotoUrl)
 
                 });
-    })
-})
+    });
+});
 
 // =================================================================================================================== Generate Background Image
 
