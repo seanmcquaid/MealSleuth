@@ -94,8 +94,10 @@ if (navigator.geolocation) {
                         priceDescription = "$11 – 30"
                     } else if (priceLevel == 3){
                         priceDescription = "$31 – 60"
-                    } else {
+                    } else if (priceLevel == 4) {
                         priceDescription = "$61 – Over"
+                    } else {
+                        priceDescription = "undefined"
                     }
                     $(".price-range").html(`${priceDescription}`);
 
