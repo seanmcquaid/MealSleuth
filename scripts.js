@@ -1,131 +1,132 @@
-// ======================================================================================================================= Generate Search Result
-
-const key = "AIzaSyB8S65sZlmJq1Yh6pLBEAcY_-oLCSXoJqo";
-
 // ================== Define Latitute and Longitute from current location
 
-let lat;
-let lon;
+let lat
+let lon
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
         lat = position.coords.latitude,
         lon = position.coords.longitude
-    });
-};
-
-console.log(lat);
-console.log(lon);
+    })
+}
 
 
-// ================== Pull price point from Search
+    // ================== Pull price point from Search
 
-    $('.search-form').submit((e)=>{
+    $('.input-group').submit((e)=>{
         e.preventDefault();
 
-    // ================== Google Places URL STart
-    
-    const googlePlaceUrl = "https://maps.googleapis.com/maps/api/place";
-    
-
-        // ================== Generate Parameters for Google Nearby Search URL
-        const searchType = "nearbysearch";
-
-            const language = "en";
-            const price = $('.input-price').val();
-            const type = "restaurant";
-            const currLocation = `${lat},${lon}`;
-                // console.log(currLocation)
-            const rankby = "distance";
-    
-    // ================== Final Search - Nearby Search URL
-
-    // Parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
-    
-    const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${key}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${currLocation}&language=${language}&opennow;`;
-        console.log(googleUrl);
-
-    // =================================== Get Results Data
-
-        // ================= Get location id and photo reference number from Nearby Serach URL – First Result
+        // ================== Google Places URL STart
         
-        $.getJSON(googleUrl,(searchData)=>{
-            // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
-            const nearbySearchLength = (searchData.results).length;
-                // console.log(photoLength)
-            const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength))) + 1;
+        const googlePlaceUrl = "https://maps.googleapis.com/maps/api/place"
+        
 
-            // console.log(searchData.results[nearbySearchNumber].place_id)
+            // ================== Generate Parameters for Google Nearby Search URL
+            const searchType = "nearbysearch"
 
-            const placeId = searchData.results[nearbySearchNumber].place_id;
-                // console.log(placeId)
+                const language = "en"
+                const price = $('.input-price').val();
+                const type = "restaurant"
+                const currLocation = `${lat},${lon}`
+                    // console.log(currLocation)
+                const rankby = "distance" 
+        
+        // ================== Final Search - Nearby Search URL
+    
+        // Parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
+        
+        const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${currLocation}&language=${language}&opennow;`
+            console.log(googleUrl)
 
-            // ================= Assemble Details URL
+        // =================================== Get Results Data
 
-            const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${key}&fields=name,formatted_address,rating,website,price_level,review,photos`;
-                console.log(detailsUrl);
+        
 
-            // ================= Pull Details URL Data
+            // ================= Get location id and photo reference number from Nearby Serach URL – First Result
+            
+            $.getJSON(googleUrl,(searchData)=>{
 
-            $.getJSON(detailsUrl,(searchDetails)=>{
-
-                const restName = searchDetails.result.name;
-                    // console.log(restName);
-                $(".result-name").html(`${restName}`);
-                const website = searchDetails.result.website;
-                    // console.log(website);
-                $(".result-site").html(`${website}`);
-                const address = searchDetails.result.formatted_address;
-                    // console.log(address);
-                $(".result-add").html(`${address}`);
-                const restRating = searchDetails.result.rating;
-                    // console.log(restRating);
-                $(".main-score").html(`${restRating}`);
-                const priceLevel = searchDetails.result.price_level;
-                    // console.log(priceLevel);
-                $(".price-range").html(`${priceLevel}`);
-
-                // ================== Review Info
-                    // Create Random Number based on number of review length
-                    // This lets pull a different review every time
-                    const reviewsLength = (searchDetails.result.reviews).length;
-                        // console.log(reviewsLength)
-                    const reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength))) + 1;
-
-                    const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name;
-                        // console.log(reviewUserName);
-                    $(".review-username").html(`${reviewUserName}`);
-                    const reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
-                        // console.log(reviewRating);
-                    $(".review-score").html(`${reviewRating}`);
-                    const reviewText = searchDetails.result.reviews[reviewsNumber].text;
-                        // console.log(reviewText);
-                    $(".review-text").html(`${reviewText}`);
-                
-                // ================== Rest Photo
-
-                    // Create Random Number based on number of photos results length, just like for reviews
-                const photoLength = (searchDetails.result.photos).length;
+                // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
+                const nearbySearchLength = (searchData.results).length
                     // console.log(photoLength)
-                    const photoNumber = (Math.floor(Math.random() * Math.floor(photoLength))) + 1;
+                const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength))) + 1;
 
-                // Photo Reference Number
-                    const photoRef = searchDetails.result.photos[photoNumber].photo_reference;
+                // console.log(searchData.results[nearbySearchNumber].place_id)
 
-                //  Define desired Height and Width
-                // const photoHeight = searchDetails.result.photos[photoNumber].height
-                const photoWidth = searchDetails.result.photos[photoNumber].width;
+                const placeId = searchData.results[nearbySearchNumber].place_id
+                    // console.log(placeId)
 
-                // Create Photo Url
-                const restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${key}`;
-                    // console.log(restPhotoUrl);
-                $(".rest-pic").attr("src", `${restPhotoUrl}`);
+                // Calculate Place Location (to get distance variable further below)
+                const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat
+                const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng
+                const placeLocation = `${placeLat},${placeLon}`
 
-            });
+                const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${currLocation}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`
+                    console.log(distanceUrl)     
                 
-            });
+                $.getJSON(distanceUrl,(distInMiles)=>{
 
-});
+                    const placeDistance = distInMiles.rows[0].elements[0].distance.text
+                        console.log(placeDistance)
 
+                })    
+
+
+
+                // ==================================================== Assemble Details URL
+
+                const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`
+                    console.log(detailsUrl)
+
+                // ================= Pull Details URL Data
+
+                $.getJSON(detailsUrl,(searchDetails)=>{
+
+                    const restName = searchDetails.result.name
+                        // console.log(restName)
+                    const address = searchDetails.result.formatted_address
+                        // console.log(address)
+                    const restRating = searchDetails.result.rating
+                        // console.log(restRating)
+                    const website = searchDetails.result.website
+                        // console.log(website)
+                    const priceLevel = searchDetails.result.price_level
+                        // console.log(priceLevel)
+
+                   // ================== Review Info
+                        // Create Random Number based on number of review length
+                        // This lets pull a different review every time
+                        const reviewsLength = (searchDetails.result.reviews).length
+                            // console.log(reviewsLength)
+                        const reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength))) + 1;
+
+                        const reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name
+                            // console.log(reviewUserName )
+                        const reviewRating = searchDetails.result.reviews[reviewsNumber].rating
+                            // console.log(reviewRating)
+                        const reviewText = searchDetails.result.reviews[reviewsNumber].text
+                            // console.log(reviewText)    
+                    
+                    // ================== Rest Photo
+
+                     // Create Random Number based on number of photos results length, just like for reviews
+                    const photoLength = (searchDetails.result.photos).length
+                     // console.log(photoLength)
+                     const photoNumber = (Math.floor(Math.random() * Math.floor(photoLength))) + 1;
+
+                    // Photo Reference Number
+                     const photoRef = searchDetails.result.photos[photoNumber].photo_reference
+
+                    //  Define desired Height and Width
+                    // const photoHeight = searchDetails.result.photos[photoNumber].height
+                    const photoWidth = searchDetails.result.photos[photoNumber].width
+
+                    // Create Photo Url
+                    const restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
+                        // console.log(restPhotoUrl)
+
+                });
+    })
+})
 
 // =================================================================================================================== Generate Background Image
 
