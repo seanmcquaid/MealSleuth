@@ -34,25 +34,25 @@ $('.search-form').submit((e)=>{
          
          // ================== Get Search Location Lat and Lon
          const myLocation = $('.input-location').val();
-         console.log(myLocation);
+        //  console.log(myLocation);
              const myLocationComma = myLocation.replace(/,/g,"");
              const myLocFinalFormat = myLocationComma.replace(/ /g,"+")
              
              const addressToCordinatesUrl=`https://maps.googleapis.com/maps/api/geocode/json?address=${myLocFinalFormat}&key=${placesKey}`    
-             console.log(addressToCordinatesUrl)
+            //  console.log(addressToCordinatesUrl)
              
              
              $.getJSON(addressToCordinatesUrl,(coridinateData)=>{   
                  const searchLat =  coridinateData.results[0].geometry.location.lat
                  const searchLon =  coridinateData.results[0].geometry.location.lng
                  const searchCordinates = `${searchLat},${searchLon}`
-                 console.log(searchCordinates)
+                //  console.log(searchCordinates)
 
                  // Assemble Nearby Search Url
                  // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
  
                  const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchCordinates}&language=${language}&opennow;`
-                 console.log(googleUrl)
+                //  console.log(googleUrl)
 
 
 
@@ -80,7 +80,7 @@ $('.search-form').submit((e)=>{
         // ================= Pull Details URL Data
 
         $.getJSON(detailsUrl,(searchDetails)=>{
-            console.log(searchDetails);
+            // console.log(searchDetails);
             const restName = searchDetails.result.name;
             $(".result-name").html(`${restName}`);
             const website = searchDetails.result.website;
@@ -127,8 +127,7 @@ $('.search-form').submit((e)=>{
 
             // Create Random Number based on number of photos results length, just like for reviews
             let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
-            console.log(searchDetails.results);
-            if(searchDetails.results.photos){
+            if((searchDetails.result.photos)){
                 photoLength = (searchDetails.result.photos).length;
                 photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
                 photoRef = searchDetails.result.photos[photoNumber].photo_reference;
@@ -148,7 +147,7 @@ $('.search-form').submit((e)=>{
                     // need the name of the restaraunt from the search, NOT FROM GOOGLE
                     if(nearbyZomato[k].restaurant.name === restName){
                         let cuisineOfRest = nearbyZomato[k].restaurant.cuisines.split(",", 1);
-                        console.log(cuisineOfRest);
+                        // console.log(cuisineOfRest);
                         $(".cuisine").html(cuisineOfRest);
                         // this will not update on each click properly
                         return;
