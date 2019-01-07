@@ -46,7 +46,7 @@ $('.search-form').submit((e)=>{
         // console.log(searchData);
         // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
         const nearbySearchLength = (searchData.results).length;
-        const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
+        const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength + 1)));
         const placeId = searchData.results[nearbySearchNumber].place_id;
         // Calculate Place Location (to get distance variable further below)
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
@@ -111,7 +111,8 @@ $('.search-form').submit((e)=>{
 
             // Create Random Number based on number of photos results length, just like for reviews
             let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
-            if(searchDetails.results.photos.length > 0){
+            console.log(searchDetails.results);
+            if(searchDetails.results.photos){
                 photoLength = (searchDetails.result.photos).length;
                 photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
                 photoRef = searchDetails.result.photos[photoNumber].photo_reference;
