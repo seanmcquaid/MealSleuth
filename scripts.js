@@ -11,8 +11,8 @@ if (navigator.geolocation) {
     // console.log(myAddressUrl)
     $.getJSON(myAddressUrl,(addressData)=>{   
         const myCurrAddress =  addressData.results[0].formatted_address
-            // console.log(myCurrAddress)
-        document.querySelector('.input-location').placeholder =`${myCurrAddress}`
+        $('.input-location').val(myCurrAddress)
+        
     })        
     })
 }
@@ -36,6 +36,8 @@ if (navigator.geolocation) {
                 const price = $('.input-price').val();
                 const type = "restaurant"
                 const rankby = "distance" 
+                const myLocation = $('.input-location').val()
+                    console.log(myLocation)
 
 
         
