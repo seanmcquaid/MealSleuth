@@ -181,3 +181,14 @@ function chooseBackground(){
 }
 
 chooseBackground();
+
+// ============================= Animation for Results Pop-Up
+
+$(document).ready(()=>{
+    $('.results-box').css("display","none");
+});
+
+$('#search-btn').click(()=>{
+    $('.results-box').css("display","flex");
+    $('.results-box').css('animation-name',"grow");
+});
