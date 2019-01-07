@@ -178,4 +178,6 @@ $(document).ready(()=>{
 $('#search-btn').click(()=>{
     $('.results-box').css("display","flex");
     $('.results-box').css('animation-name',"grow");
+    $('.footer').css('position',"static");
+    $('.page-body').css('height','auto');
 });

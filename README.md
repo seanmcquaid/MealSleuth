@@ -34,13 +34,13 @@ This project is a front-end only application designed to search for certain rest
 ## Authors
 * Sean McQuaid
     * Contributions:
-        * Concept, Project Management, Responsive Design
+        * Concept, Project Management, Google Places API Implementation, Responsive Design
     * [GitHub Profile](https://github.com/seanmcquaid)
 * Greg Roques
     * Contributions:
-        * Desktop Wireframing, GoogleAPI Implementation
+        * Desktop Wireframing, Google Places API Implementation
     * [GitHub Profile](https://github.com/GregRoques)
 * Michael Rubino
     * Contributions:
-        * Mobile Wireframing, CSS, API Implementation
+        * Mobile Wireframing, CSS, Google Places API Implementation, Zomato API Implementation, Responsive Design
     * [GitHub Profile](https://github.com/rubinoAM)
