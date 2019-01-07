@@ -87,10 +87,11 @@ $('.search-form').submit((e)=>{
             $(".result-site").html(`${website}`);
             const address = searchDetails.result.formatted_address;
             $(".result-add").html(`${address}`);
-            const restRating = searchDetails.result.rating;
+            let restRating = searchDetails.result.rating;
+            restRating = ratingConversion(restRating);
             $(".main-score").html(`${restRating}`);
             const priceLevel = searchDetails.result.price_level;
-            let priceDescription
+            let priceDescription;
             if (priceLevel == 1){
                 priceDescription = "$10 and Under";
             } else if (priceLevel == 2){
@@ -114,6 +115,7 @@ $('.search-form').submit((e)=>{
                 reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name || '';
                 $(".review-username").html(`${reviewUserName}`);
                 reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
+                reviewRating = ratingConversion(reviewRating);
                 $(".review-score").html(`${reviewRating}`);
                 reviewText = searchDetails.result.reviews[reviewsNumber].text;
                 $(".review-text").html(`${reviewText}`);
@@ -201,3 +203,40 @@ $('#search-btn').click(()=>{
     $('.footer').css('position',"static");
     $('.page-body').css('height','auto');
 });
+
+// ============================== Convert rating numbers to stars
+function ratingConversion(rating){
+    if(rating > 4.75 && rating <= 5){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>';
+    }
+    else if(rating > 4.25 && rating <= 4.75){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-empty"></i>';
+    }
+    else if(rating > 3.75 && rating <= 4.25){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 3.25 && rating <= 3.75){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 2.75 && rating <= 3.25){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 2.25 && rating <= 2.75){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 1.75 && rating <= 2.25){
+        return '<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 1.25 && rating <= 1.75){
+        return '<i class="icon-star"></i><i class="icon-star-half-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 0.75 && rating <= 1.25){
+        return '<i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 0.25 && rating <= 0.75){
+        return '<i class="icon-star-half-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+    else if(rating > 0 && rating <= 0.25){
+        return '<i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
+    }
+}
