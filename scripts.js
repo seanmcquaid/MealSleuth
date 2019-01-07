@@ -64,6 +64,7 @@ $('.search-form').submit((e)=>{
         // ================= Pull Details URL Data
 
         $.getJSON(detailsUrl,(searchDetails)=>{
+            console.log(searchDetails);
             const restName = searchDetails.result.name;
             $(".result-name").html(`${restName}`);
             const website = searchDetails.result.website;
@@ -110,7 +111,7 @@ $('.search-form').submit((e)=>{
 
             // Create Random Number based on number of photos results length, just like for reviews
             let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
-            if(searchData.details.results.photo){
+            if(searchDetails.results.photos.length > 0){
                 photoLength = (searchDetails.result.photos).length;
                 photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
                 photoRef = searchDetails.result.photos[photoNumber].photo_reference;
