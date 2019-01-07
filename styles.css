@@ -58,7 +58,6 @@ input:focus, select:focus{
 }
 
 .tagline-box{
-    background-image:url("https://loremflickr.com/g/320/240/dog");
     background-size:cover;
     display:flex;
     flex-direction:column;
@@ -169,6 +168,7 @@ input:focus, select:focus{
     animation-duration: 1.25s;	
     animation-iteration-count: 1;	
     animation-fill-mode:forwards;
+    flex-direction: column;
 }
 
 .results-header{
@@ -198,6 +198,7 @@ input:focus, select:focus{
 
 .main-head{
     display:flex;
+    flex-direction:column;
     justify-content: space-evenly;
     text-align:center;
     margin:0.25rem 0 0 0;
@@ -250,6 +251,7 @@ input:focus, select:focus{
 .main-score{
     font-size:1.125rem;
     color:#f26522;
+    font-family:sans-serif;
 }
 
 #visit-btn{
@@ -335,12 +337,16 @@ input:focus, select:focus{
     color:#f26522;
     margin-bottom:0.625rem;
     font-size:1.25rem;
+    font-family:sans-serif;
 }
 
 .footer{
     background-color:#282421;
     text-align:center;
     padding:1.5rem 0;
+    bottom:0;
+    width:100%;
+    position:absolute;
 }
 
 .footer span{
@@ -361,7 +367,6 @@ input:focus, select:focus{
 
 @media (min-width:40rem){ /* CSS for Tablet Screens*/
     .page-body{
-        background-image:url("https://loremflickr.com/g/320/240/dog");
         background-size:cover;
     }
 
@@ -370,6 +375,10 @@ input:focus, select:focus{
         flex-direction:column;
         align-items:center;
         justify-content:center;
+    }
+
+    .main-head{
+        flex-direction:row;
     }
 
     .search-box, .results-box{
@@ -437,11 +446,15 @@ input:focus, select:focus{
     .m-body-h1, .m-body-p{
         font-size:1.25rem;
     }
+
+    .footer{
+        position:static;
+    }
 }
 
 @media screen and (min-width:64rem){ /* CSS for Desktop Screens */
     .page-body{
-        padding-bottom:1.25rem;
+        padding-bottom:3.5rem;
     }
 
     .main-content {
@@ -561,5 +574,21 @@ input:focus, select:focus{
 @media screen and (min-width:84rem){
     body{
         background:#282421;
+    }
+}
+
+@media screen and (min-width:40rem) and (min-height:46rem){
+    .page-body{
+        height:90vh;
+    }
+}
+
+@media screen and (min-width:64rem) and (min-height:42rem){
+    .page-body{
+        height:85vh;
+    }
+
+    .footer{
+        position:static;
     }
 }

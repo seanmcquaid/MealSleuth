@@ -1,9 +1,9 @@
 // ================== Populate Current Location in Location Search Bar
 
-let lat
-let lon
+let lat,lon;
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
+<<<<<<< HEAD
     lat = position.coords.latitude,
     lon = position.coords.longitude
 
@@ -161,9 +161,149 @@ if (navigator.geolocation) {
                             console.log(restPhotoUrl)
 
                     });
+=======
+        lat = position.coords.latitude,
+        lon = position.coords.longitude
+    });
+};
+
+
+// ================== Pull price point from Search
+
+$('.search-form').submit((e)=>{
+    e.preventDefault();
+
+    // ================== Google Places URL STart
+
+    const googlePlaceUrl = "https://maps.googleapis.com/maps/api/place"
+
+
+    // ================== Generate Parameters for Google Nearby Search URL
+    const searchType = "nearbysearch"
+
+    const language = "en"
+    const price = $('.input-price').val();
+    const type = "restaurant"
+    const currLocation = `${lat},${lon}`
+    // console.log(currLocation)
+    const rankby = "distance" 
+
+    // ================== Final Search - Nearby Search URL
+
+    // Parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
+
+    const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${currLocation}&language=${language}&opennow;`
+    // console.log(googleUrl)
+
+    // =================================== Get Results Data
+
+
+
+    // ================= Get location id and photo reference number from Nearby Serach URL – First Result
+
+    $.getJSON(googleUrl,(searchData)=>{
+        // console.log(searchData);
+        // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
+        const nearbySearchLength = (searchData.results).length;
+        const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
+        const placeId = searchData.results[nearbySearchNumber].place_id;
+        // Calculate Place Location (to get distance variable further below)
+        const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
+        const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
+        const placeLocation = `${placeLat},${placeLon}`;
+        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${currLocation}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`    
+        $.getJSON(distanceUrl,(distInMiles)=>{
+        const placeDistance = distInMiles.rows[0].elements[0].distance.text
+        $(".distance").html(`${placeDistance}`);
+        });
+
+        // ==================================================== Assemble Details URL
+        const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`;
+
+        // ================= Pull Details URL Data
+
+        $.getJSON(detailsUrl,(searchDetails)=>{
+            console.log(searchDetails);
+            const restName = searchDetails.result.name;
+            $(".result-name").html(`${restName}`);
+            const website = searchDetails.result.website;
+            $(".result-site").html(`${website}`);
+            const address = searchDetails.result.formatted_address;
+            $(".result-add").html(`${address}`);
+            const restRating = searchDetails.result.rating;
+            $(".main-score").html(`${restRating}`);
+            const priceLevel = searchDetails.result.price_level;
+            let priceDescription
+            if (priceLevel == 1){
+                priceDescription = "$10 and Under";
+            } else if (priceLevel == 2){
+                priceDescription = "$11 – 30";
+            } else if (priceLevel == 3){
+                priceDescription = "$31 – 60";
+            } else if (priceLevel == 4) {
+                priceDescription = "$61 – Over";
+            } else {
+                priceDescription = "undefined";
+            };
+            $(".price-range").html(`${priceDescription}`);
+
+            // ================== Review Info
+            // Create Random Number based on number of review length
+            // This lets pull a different review every time
+            let reviewsLength,reviewsNumber,reviewUserName,reviewRating,reviewText;
+            if(searchDetails.result.reviews){
+                reviewsLength = (searchDetails.result.reviews).length;
+                reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength)));
+                reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name || '';
+                $(".review-username").html(`${reviewUserName}`);
+                reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
+                $(".review-score").html(`${reviewRating}`);
+                reviewText = searchDetails.result.reviews[reviewsNumber].text;
+                $(".review-text").html(`${reviewText}`);
+            } else{
+                $(".review-username").html("None available");
+                $(".review-score").html("None available");
+                $(".review-text").html("None available");
+            };
+
+            // ================== Rest Photo
+
+            // Create Random Number based on number of photos results length, just like for reviews
+            let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
+            if(searchDetails.results.photos.length > 0){
+                photoLength = (searchDetails.result.photos).length;
+                photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
+                photoRef = searchDetails.result.photos[photoNumber].photo_reference;
+                photoWidth = searchDetails.result.photos[photoNumber].width
+                restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
+                $(".rest-pic").attr("src", `${restPhotoUrl}`);
+            } else {
+                $(".rest-pic").attr("src", "");
+            };
+
+            let nearbyZomato;
+            const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}&sort=real_distance&apikey=${zomatoKey}`;
+
+            $.getJSON(zomUrl,(zomData)=>{
+                nearbyZomato = zomData.restaurants;
+                for(let k=0; k < nearbyZomato.length; k++){
+                    // need the name of the restaraunt from the search, NOT FROM GOOGLE
+                    if(nearbyZomato[k].restaurant.name === restName){
+                        let cuisineOfRest = nearbyZomato[k].restaurant.cuisines.split(",", 1);
+                        console.log(cuisineOfRest);
+                        $(".cuisine").html(cuisineOfRest);
+                        // this will not update on each click properly
+                        return;
+                        } else {
+                        $(".cuisine").html("Not available!");
+                        };
+                };
+            });
+>>>>>>> origin/master
         });
     });
 })
+
 
 // =================================================================================================================== Generate Background Image
 
@@ -181,13 +321,13 @@ function chooseBackground(){
         else{
             document.querySelector('.tagline-box').style.backgroundImage = `url('images/backgroundImage${backgroundImage}.jpg')`;
             document.querySelector('.page-body').style.backgroundImage = `none`;
-        }
-    }
+        };
+    };
 
     let param = window.matchMedia("(min-width:40rem)");
     checkScreen(param);
     param.addListener(checkScreen);
-}
+};
 
 chooseBackground();
 
@@ -200,4 +340,6 @@ $(document).ready(()=>{
 $('#search-btn').click(()=>{
     $('.results-box').css("display","flex");
     $('.results-box').css('animation-name',"grow");
+    $('.footer').css('position',"static");
+    $('.page-body').css('height','auto');
 });
