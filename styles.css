@@ -26,7 +26,8 @@ input:focus, select:focus{
 /* Initial CSS (Set For Mobile Screens) */
 .container{
     margin:0 auto;
-    width:100%;
+    width:100vw;
+    height:100vh;
 }
 
 .header{
@@ -165,6 +166,7 @@ input:focus, select:focus{
     width:86%;
     max-width:30rem;
     margin:0.75rem auto 1.5rem;
+    flex-direction:column;
     transform:scale(0);	
     animation-duration: 1.25s;	
     animation-iteration-count: 1;	
@@ -341,6 +343,7 @@ input:focus, select:focus{
     background-color:#282421;
     text-align:center;
     padding:1.5rem 0;
+    bottom:100vh;
 }
 
 .footer span{
@@ -561,5 +564,16 @@ input:focus, select:focus{
 @media screen and (min-width:84rem){
     body{
         background:#282421;
+    }
+}
+
+@media screen and (min-height:42rem){
+    .footer{
+        bottom:0;
+        width:100%;
+    }
+
+    .page-body{
+        height:90vh;
     }
 }
