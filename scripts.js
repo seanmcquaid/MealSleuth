@@ -1,42 +1,58 @@
 // ================== Define Latitute and Longitute from current location
 
-let lat,lon;
+let lat
+let lon
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-        lat = position.coords.latitude,
-        lon = position.coords.longitude
-    });
-};
+    lat = position.coords.latitude,
+    lon = position.coords.longitude
 
-
+    const myAddressUrl=`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${placesKey}`
+    $.getJSON(myAddressUrl,(addressData)=>{   
+        const myCurrAddress =  addressData.results[0].formatted_address
+        $('.input-location').val(myCurrAddress)
+    })        
+    })
+}
 // ================== Pull price point from Search
 
 $('.search-form').submit((e)=>{
     e.preventDefault();
 
-    // ================== Google Places URL STart
+     // ================== Google Places URL STart
+        
+     const googlePlaceUrl = "https://maps.googleapis.com/maps/api/place"
+        
 
-    const googlePlaceUrl = "https://maps.googleapis.com/maps/api/place"
+     // ================== Generate Parameters for Google Nearby Search URL
+        
+         const searchType = "nearbysearch"
+         const language = "en"
+         const price = $('.input-price').val();
+         const type = "restaurant"
+         const rankby = "distance" 
+         
+         // ================== Get Search Location Lat and Lon
+         const myLocation = $('.input-location').val();
+         console.log(myLocation);
+             const myLocationComma = myLocation.replace(/,/g,"");
+             const myLocFinalFormat = myLocationComma.replace(/ /g,"+")
+             
+             const addressToCordinatesUrl=`https://maps.googleapis.com/maps/api/geocode/json?address=${myLocFinalFormat}&key=${placesKey}`    
+             console.log(addressToCordinatesUrl)
+             
+             
+             $.getJSON(addressToCordinatesUrl,(coridinateData)=>{   
+                 const searchLat =  coridinateData.results[0].geometry.location.lat
+                 const searchLon =  coridinateData.results[0].geometry.location.lng
+                 const searchCordinates = `${searchLat},${searchLon}`
+                 console.log(searchCordinates)
 
-
-    // ================== Generate Parameters for Google Nearby Search URL
-    const searchType = "nearbysearch"
-
-    const language = "en"
-    const price = $('.input-price').val();
-    const type = "restaurant"
-    const currLocation = `${lat},${lon}`
-    // console.log(currLocation)
-    const rankby = "distance" 
-
-    // ================== Final Search - Nearby Search URL
-
-    // Parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
-
-    const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${currLocation}&language=${language}&opennow;`
-    // console.log(googleUrl)
-
-    // =================================== Get Results Data
+                 // Assemble Nearby Search Url
+                 // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
+ 
+                 const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchCordinates}&language=${language}&opennow;`
+                 console.log(googleUrl)
 
 
 
@@ -52,7 +68,7 @@ $('.search-form').submit((e)=>{
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
         const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
         const placeLocation = `${placeLat},${placeLon}`;
-        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${currLocation}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`    
+        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`    
         $.getJSON(distanceUrl,(distInMiles)=>{
         const placeDistance = distInMiles.rows[0].elements[0].distance.text
         $(".distance").html(`${placeDistance}`);
@@ -143,6 +159,8 @@ $('.search-form').submit((e)=>{
             });
         });
     });
+});
+
 });
 
 
