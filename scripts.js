@@ -69,7 +69,7 @@ if (navigator.geolocation) {
                     // console.log(photoLength)
                 const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
 
-                // console.log(searchData.results[nearbySearchNumber].place_id)
+                console.log(searchData.results[nearbySearchNumber].place_id)
 
                 const placeId = searchData.results[nearbySearchNumber].place_id
                     // console.log(placeId)
@@ -158,7 +158,7 @@ if (navigator.geolocation) {
 
                         // Create Photo Url
                         const restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
-                            // console.log(restPhotoUrl)
+                            console.log(restPhotoUrl)
 
                     });
         });
