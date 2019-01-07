@@ -1,4 +1,4 @@
-// ================== Capture Current Location
+// ================== Populate Current Location in Location Search Bar
 
 let lat
 let lon
@@ -8,18 +8,16 @@ if (navigator.geolocation) {
     lon = position.coords.longitude
 
     const myAddressUrl=`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${placesKey}`
-    // console.log(myAddressUrl)
     $.getJSON(myAddressUrl,(addressData)=>{   
         const myCurrAddress =  addressData.results[0].formatted_address
         $('.input-location').val(myCurrAddress)
-        
     })        
     })
 }
 
 
 
-// ========================================= =======================  Pull price point from Search
+// =================================================================  Activate Result Search
 
     $('.search-form').submit((e)=>{
         e.preventDefault();
@@ -36,8 +34,11 @@ if (navigator.geolocation) {
                 const price = $('.input-price').val();
                 const type = "restaurant"
                 const rankby = "distance" 
+                // ================== Get Search Location Lat and Lon
                 const myLocation = $('.input-location').val()
-                    console.log(myLocation)
+                    const myLocationComma = myLocation.replace(/,/g,"");
+                    const myLocFinalFormat = myLocationComma.replace(/ /g,"+")
+                    console.log(myLocFinalFormat)
 
 
         
