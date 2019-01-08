@@ -256,8 +256,11 @@ input:focus, select:focus{
     font-family:sans-serif;
 }
 
-#visit-btn{
+.visit-link{
     margin:0 auto 0.5rem;
+}
+
+#visit-btn{
     color:#fff;
     background-color:#f26522;
     border:none;
