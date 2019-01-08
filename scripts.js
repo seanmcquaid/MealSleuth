@@ -55,7 +55,7 @@ $('.search-form').submit((e)=>{
                  // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
  
                  const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchCoordinates}&language=${language}&opennow;`
-                 console.log(googleUrl)
+                //  console.log(googleUrl)
 
 
 
@@ -81,7 +81,7 @@ $('.search-form').submit((e)=>{
 
         // ==================================================== Assemble Details URL
         const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`;
-        console.log(detailsUrl)
+        // console.log(detailsUrl)
         // ================= Pull Details URL Data
 
         $.getJSON(detailsUrl,(searchDetails)=>{
@@ -146,10 +146,10 @@ $('.search-form').submit((e)=>{
             };
 
             let nearbyZomato;
-            console.log(searchLat)
-            console.log(searchLon)
+            // console.log(searchLat)
+            // console.log(searchLon)
             const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${searchLat}&lon=${searchLon}&sort=real_distance&apikey=${zomatoKey}&start=0&count=100`;
-                console.log(zomUrl)
+                // console.log(zomUrl)
             $.getJSON(zomUrl,(zomData)=>{
                 nearbyZomato = zomData.restaurants;
                 for(let k=0; k < nearbyZomato.length; k++){
