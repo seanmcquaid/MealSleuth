@@ -22,6 +22,7 @@ This project is a front-end only application designed to search for certain rest
 * HTML/CSS/JavaScript
 * Google Maps API
 * Google Places API
+* Zomato API
 
 ## Challenges and Solutions
 * Distance Calculation
