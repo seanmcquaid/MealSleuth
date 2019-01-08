@@ -325,6 +325,8 @@ input:focus, select:focus{
     font-family:'Raleway', sans-serif;
     text-align:center;
     margin:1rem 0.5rem;
+    max-height: 14rem;
+    overflow: scroll;
 }
 
 .review-username{
