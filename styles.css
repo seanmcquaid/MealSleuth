@@ -236,8 +236,9 @@ input:focus, select:focus{
     font-size:1.125rem;
 }
 
-.result-site{
-    font-size:0.875rem;
+.site-link{
+    color:rgb(77, 57, 167);
+    font-size:1.125rem;
 }
 
 .result-add{
@@ -327,7 +328,7 @@ input:focus, select:focus{
     text-align:center;
     margin:1rem 0.5rem;
     max-height: 14rem;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .review-username{

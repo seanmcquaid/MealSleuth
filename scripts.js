@@ -84,7 +84,7 @@ $('.search-form').submit((e)=>{
             const restName = searchDetails.result.name;
             $(".result-name").html(`${restName}`);
             const website = searchDetails.result.website;
-            $(".result-site").html(`${website}`);
+            $(".result-site").html(`<a class="site-link" href="${website}">Website</a>`);
             const address = searchDetails.result.formatted_address;
             $(".result-add").html(`${address}`);
             let restRating = searchDetails.result.rating;
