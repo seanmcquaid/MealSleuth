@@ -1,19 +1,19 @@
 // ================== Define Latitute and Longitute from current location
 
-let lat
-let lon
+let lat;
+let lon;
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-    lat = position.coords.latitude,
-    lon = position.coords.longitude
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
 
     const myAddressUrl=`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${placesKey}`
     $.getJSON(myAddressUrl,(addressData)=>{   
-        const myCurrAddress =  addressData.results[0].formatted_address
-        $('.input-location').val(myCurrAddress)
-    })        
-    })
-}
+        const myCurrAddress =  addressData.results[0].formatted_address;
+        $('.input-location').val(myCurrAddress);
+    });        
+    });
+};
 
 // ================== Pull price point from Search
 
@@ -75,7 +75,7 @@ $('.search-form').submit((e)=>{
         directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/`;
          $(".visit-link").attr("href", directionsURL);
         $.getJSON(distanceUrl,(distInMiles)=>{
-        const placeDistance = distInMiles.rows[0].elements[0].distance.text
+        const placeDistance = distInMiles.rows[0].elements[0].distance.text;
         $(".distance").html(`${placeDistance}`);
         });
 
@@ -147,15 +147,12 @@ $('.search-form').submit((e)=>{
 
             let nearbyZomato;
 
-            const googleCompareAddress = `${(address.split(" ")).slice(0,1)} ${(address.split(" ")).slice(1,2)}`;
-
             const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${searchLat}&lon=${searchLon}&sort=real_distance&apikey=${zomatoKey}&start=0&count=100`;
                 // console.log(zomUrl)
             $.getJSON(zomUrl,(zomData)=>{
-                nearbyZomato = zomData.restaurants;
-          
-                for(let k=0; k < nearbyZomato.length; k++){
-                  
+                nearbyZomato = zomData.restaurants;     
+                
+                for(let k=0; k < nearbyZomato.length; k++){      
                     const restNameFormat = (`${(restName.split(" ")).slice(0,1)}`).toLowerCase(); 
                     let zomatoRestName = nearbyZomato[k].restaurant.name;
                     let zomatoRestNameFormat = (`${(zomatoRestName.split(" ")).slice(0,1)}`).toLowerCase();
@@ -253,4 +250,4 @@ function ratingConversion(rating){
     else if(rating > 0 && rating <= 0.25){
         return '<i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
     }
-}
+};
