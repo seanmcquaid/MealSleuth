@@ -143,19 +143,24 @@ $('.search-form').submit((e)=>{
             };
 
             let nearbyZomato;
-            console.log(searchLat)
-            console.log(searchLon)
+            const googleCompareAddress = `${(address.split(" ")).slice(0,1)} ${(address.split(" ")).slice(1,2)}`
+                console.log(googleCompareAddress)
             const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${searchLat}&lon=${searchLon}&sort=real_distance&apikey=${zomatoKey}&start=0&count=100`;
                 console.log(zomUrl)
             $.getJSON(zomUrl,(zomData)=>{
                 nearbyZomato = zomData.restaurants;
+          
+               
+                
                 for(let k=0; k < nearbyZomato.length; k++){
-                    // need the name of the restaraunt from the search, NOT FROM GOOGLE
-                    if(nearbyZomato[k].restaurant.name === restName){
+                  
+                    const restNameFormat = (`${(restName.split(" ")).slice(0,1)}`).toLowerCase(); 
+                    let zomatoRestName = nearbyZomato[k].restaurant.name;
+                    let zomatoRestNameFormat = (`${(zomatoRestName.split(" ")).slice(0,1)}`).toLowerCase();
 
+                    // need the name of the restaraunt from the search, NOT FROM GOOGLE
+                    if(zomatoRestNameFormat === restNameFormat){
                         let cuisineOfRest = nearbyZomato[k].restaurant.cuisines.split(",", 1);
-                        console.log(cuisineOfRest)
-                        // console.log(cuisineOfRest);
                         $(".cuisine").html(cuisineOfRest);
                         // this will not update on each click properly
                         return;
