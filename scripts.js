@@ -62,7 +62,7 @@ $('.search-form').submit((e)=>{
         // console.log(searchData);
         // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
         const nearbySearchLength = (searchData.results).length;
-        const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength + 1)));
+        const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
         const placeId = searchData.results[nearbySearchNumber].place_id;
         // Calculate Place Location (to get distance variable further below)
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
@@ -76,7 +76,6 @@ $('.search-form').submit((e)=>{
 
         // ==================================================== Assemble Details URL
         const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`;
-        console.log(detailsUrl)
 
         // ================= Pull Details URL Data
 
