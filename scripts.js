@@ -44,10 +44,11 @@ $('.search-form').submit((e)=>{
              
              let searchLat;
              let searchLon;
+             let searchCoordinates;
              $.getJSON(addressToCordinatesUrl,(coridinateData)=>{   
-                 searchLat =  coridinateData.results[0].geometry.location.lat
-                 searchLon =  coridinateData.results[0].geometry.location.lng
-                 const searchCordinates = `${searchLat},${searchLon}`
+                 searchLat =  coridinateData.results[0].geometry.location.lat;
+                 searchLon =  coridinateData.results[0].geometry.location.lng;
+                 searchCoordinates = `${searchLat},${searchLon}`;
                 //  console.log(searchCordinates)
 
                  // Assemble Nearby Search Url
@@ -59,7 +60,7 @@ $('.search-form').submit((e)=>{
 
 
     // ================= Get location id and photo reference number from Nearby Serach URL – First Result
-
+    let directionsURL;
     $.getJSON(googleUrl,(searchData)=>{
         // console.log(searchData);
         // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
@@ -70,7 +71,11 @@ $('.search-form').submit((e)=>{
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
         const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
         const placeLocation = `${placeLat},${placeLon}`;
-        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`    
+        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;   
+        directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/;`
+        $("#visit-btn").click(()=>{
+            
+        });
         $.getJSON(distanceUrl,(distInMiles)=>{
         const placeDistance = distInMiles.rows[0].elements[0].distance.text
         $(".distance").html(`${placeDistance}`);
