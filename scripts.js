@@ -76,6 +76,7 @@ $('.search-form').submit((e)=>{
 
         // ==================================================== Assemble Details URL
         const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`;
+        console.log(detailsUrl)
 
         // ================= Pull Details URL Data
 
