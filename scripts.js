@@ -54,7 +54,7 @@ $('.search-form').submit((e)=>{
                  // Assemble Nearby Search Url
                  // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
  
-                 const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchCordinates}&language=${language}&opennow;`
+                 const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchCoordinates}&language=${language}&opennow;`
                  console.log(googleUrl)
 
 
@@ -71,11 +71,9 @@ $('.search-form').submit((e)=>{
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
         const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
         const placeLocation = `${placeLat},${placeLon}`;
-        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;   
-        directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/;`
-        $("#visit-btn").click(()=>{
-            
-        });
+        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCoordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;
+        directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/`;
+         $(".visit-link").attr("href", directionsURL);
         $.getJSON(distanceUrl,(distInMiles)=>{
         const placeDistance = distInMiles.rows[0].elements[0].distance.text
         $(".distance").html(`${placeDistance}`);
