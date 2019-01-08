@@ -154,8 +154,6 @@ $('.search-form').submit((e)=>{
             $.getJSON(zomUrl,(zomData)=>{
                 nearbyZomato = zomData.restaurants;
           
-               
-                
                 for(let k=0; k < nearbyZomato.length; k++){
                   
                     const restNameFormat = (`${(restName.split(" ")).slice(0,1)}`).toLowerCase(); 
