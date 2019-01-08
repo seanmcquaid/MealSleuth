@@ -160,6 +160,7 @@ input:focus, select:focus{
     padding:0.25em 0;
 }
 
+
 .results-box{
     width:86%;
     max-width:30rem;
@@ -581,13 +582,13 @@ input:focus, select:focus{
 
 @media screen and (min-width:40rem) and (min-height:46rem){
     .page-body{
-        height:90vh;
+        min-height:90vh;
     }
 }
 
 @media screen and (min-width:64rem) and (min-height:42rem){
     .page-body{
-        height:85vh;
+        min-height:85vh;
     }
 
     .footer{
