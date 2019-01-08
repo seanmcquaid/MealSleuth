@@ -160,6 +160,7 @@ input:focus, select:focus{
     padding:0.25em 0;
 }
 
+
 .results-box{
     width:86%;
     max-width:30rem;
@@ -235,8 +236,9 @@ input:focus, select:focus{
     font-size:1.125rem;
 }
 
-.result-site{
-    font-size:0.875rem;
+.site-link{
+    color:rgb(77, 57, 167);
+    font-size:1.125rem;
 }
 
 .result-add{
@@ -254,8 +256,11 @@ input:focus, select:focus{
     font-family:sans-serif;
 }
 
-#visit-btn{
+.visit-link{
     margin:0 auto 0.5rem;
+}
+
+#visit-btn{
     color:#fff;
     background-color:#f26522;
     border:none;
@@ -326,7 +331,7 @@ input:focus, select:focus{
     text-align:center;
     margin:1rem 0.5rem;
     max-height: 14rem;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .review-username{
@@ -581,13 +586,13 @@ input:focus, select:focus{
 
 @media screen and (min-width:40rem) and (min-height:46rem){
     .page-body{
-        height:90vh;
+        min-height:90vh;
     }
 }
 
 @media screen and (min-width:64rem) and (min-height:42rem){
     .page-body{
-        height:85vh;
+        min-height:85vh;
     }
 
     .footer{
