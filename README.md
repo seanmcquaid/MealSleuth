@@ -1,4 +1,5 @@
 # MealSleuth
+![Home Page](./readme/home_page.png)
 
 ## Contents
     * Description
@@ -8,6 +9,7 @@
     * MVP
     * Stretch Goals
     * Authors
+    * Screenshots
 
 ## Description
 This project is a front-end only application designed to search for certain restaurants based on user input for location and price range. The application returns a result that matches the user's input and renders it within the browser. The user can then get directions to the resulting location via Google Maps.
@@ -39,55 +41,50 @@ This project is a front-end only application designed to search for certain rest
     ```
     let directionsURL;
     $.getJSON(googleUrl,(searchData)=>{
-        // console.log(searchData);
-        // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
         const nearbySearchLength = (searchData.results).length;
         const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
         const placeId = searchData.results[nearbySearchNumber].place_id;
-        // Calculate Place Location (to get distance variable further below)
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
         const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
         const placeLocation = `${placeLat},${placeLon}`;
         const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCoordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;
         directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/`;
-         $(".visit-link").attr("href", directionsURL);
-        $.getJSON(distanceUrl,(distInMiles)=>{
-        const placeDistance = distInMiles.rows[0].elements[0].distance.text;
-        $(".distance").html(`${placeDistance}`);
-        });
+        $(".visit-link").attr("href", directionsURL);
+        ...
+    });
     ```
 * Dealing with "undefined" Values
     We created a set of conditionals that checked the JSON object for the parameters needed to populate the results section. If the parameters did not exist (i.e. returned "undefined"), then the code would return a string indicating to the user that the information is currently available.
 
     ```
     let reviewsLength,reviewsNumber,reviewUserName,reviewRating,reviewText;
-            if(searchDetails.result.reviews){
-                reviewsLength = (searchDetails.result.reviews).length;
-                reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength)));
-                reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name || '';
-                $(".review-username").html(`${reviewUserName}`);
-                reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
-                reviewRating = ratingConversion(reviewRating);
-                $(".review-score").html(`${reviewRating}`);
-                reviewText = searchDetails.result.reviews[reviewsNumber].text;
-                $(".review-text").html(`${reviewText}`);
-            } else{
-                $(".review-username").html("None available");
-                $(".review-score").html("None available");
-                $(".review-text").html("None available");
-            };
+        if(searchDetails.result.reviews){
+            reviewsLength = (searchDetails.result.reviews).length;
+            reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength)));
+            reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name || '';
+            $(".review-username").html(`${reviewUserName}`);
+            reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
+            reviewRating = ratingConversion(reviewRating);
+            $(".review-score").html(`${reviewRating}`);
+            reviewText = searchDetails.result.reviews[reviewsNumber].text;
+            $(".review-text").html(`${reviewText}`);
+        } else{
+            $(".review-username").html("None available");
+            $(".review-score").html("None available");
+            $(".review-text").html("None available");
+        };
 
-            let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
-            if((searchDetails.result.photos)){
-                photoLength = (searchDetails.result.photos).length;
-                photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
-                photoRef = searchDetails.result.photos[photoNumber].photo_reference;
-                photoWidth = searchDetails.result.photos[photoNumber].width
-                restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
-                $(".rest-pic").attr("src", `${restPhotoUrl}`);
-            } else {
-                $(".rest-pic").attr("src", "./images/placeholderimg.png");
-            };
+        let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
+        if((searchDetails.result.photos)){
+            photoLength = (searchDetails.result.photos).length;
+            photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
+            photoRef = searchDetails.result.photos[photoNumber].photo_reference;
+            photoWidth = searchDetails.result.photos[photoNumber].width
+            restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
+            $(".rest-pic").attr("src", `${restPhotoUrl}`);
+        } else {
+            $(".rest-pic").attr("src", "./images/placeholderimg.png");
+        };
     ```
 
     We did this because our main code would continually break once the undefined values were passed into it. Once this issue was solved, the majority of return issues we were dealing with were taken care of.
@@ -145,3 +142,9 @@ This project is a front-end only application designed to search for certain rest
     * Contributions:
         * Mobile Wireframing, Google Places API Implementation, Zomato API Implementation, Responsive Design, Finding Cuisine Type
     * [GitHub Profile](https://github.com/rubinoAM)
+
+## Screenshots
+* Search Results (Desktop)
+![Results Desktop](./readme/desktop_results.png)
+* Search Results (Mobile)
+![Results Mobile](./readme/mobile_results.png)
