@@ -142,7 +142,7 @@ $('.search-form').submit((e)=>{
                 restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
                 $(".rest-pic").attr("src", `${restPhotoUrl}`);
             } else {
-                $(".rest-pic").attr("src", "");
+                $(".rest-pic").attr("src", "./images/placeholderimg.png");
             };
 
             let nearbyZomato;
