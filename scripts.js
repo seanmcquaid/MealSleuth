@@ -56,7 +56,7 @@ $('.search-form').submit((e)=>{
 
 
 
-    // ================= Get location id and photo reference number from Nearby Serach URL – First Result
+    // ================= Get location id from Nearby Serach URL – First Result
     let directionsURL;
     $.getJSON(googleUrl,(searchData)=>{
 
