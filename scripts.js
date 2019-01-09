@@ -35,12 +35,10 @@ $('.search-form').submit((e)=>{
          
          // ================== Get Search Location Lat and Lon
          const myLocation = $('.input-location').val();
-        //  console.log(myLocation);
              const myLocationComma = myLocation.replace(/,/g,"");
              const myLocFinalFormat = myLocationComma.replace(/ /g,"+")
              
-             const addressToCordinatesUrl=`https://maps.googleapis.com/maps/api/geocode/json?address=${myLocFinalFormat}&key=${placesKey}`    
-            //  console.log(addressToCordinatesUrl)
+             const addressToCordinatesUrl=`https://maps.googleapis.com/maps/api/geocode/json?address=${myLocFinalFormat}&key=${placesKey}`;
              
              let searchLat;
              let searchLon;
@@ -49,7 +47,6 @@ $('.search-form').submit((e)=>{
                  searchLat =  coridinateData.results[0].geometry.location.lat;
                  searchLon =  coridinateData.results[0].geometry.location.lng;
                  searchCoordinates = `${searchLat},${searchLon}`;
-                //  console.log(searchCordinates)
 
                  // Assemble Nearby Search Url
                  // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
@@ -62,11 +59,12 @@ $('.search-form').submit((e)=>{
     // ================= Get location id and photo reference number from Nearby Serach URL – First Result
     let directionsURL;
     $.getJSON(googleUrl,(searchData)=>{
-        // console.log(searchData);
+
         // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
         const nearbySearchLength = (searchData.results).length;
         const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
         const placeId = searchData.results[nearbySearchNumber].place_id;
+
         // Calculate Place Location (to get distance variable further below)
         const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
         const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
@@ -81,11 +79,11 @@ $('.search-form').submit((e)=>{
 
         // ==================================================== Assemble Details URL
         const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`;
-        // console.log(detailsUrl)
+        
         // ================= Pull Details URL Data
 
         $.getJSON(detailsUrl,(searchDetails)=>{
-            // console.log(searchDetails);
+            
             const restName = searchDetails.result.name;
             $(".result-name").html(`${restName}`);
             const website = searchDetails.result.website;
@@ -145,10 +143,12 @@ $('.search-form').submit((e)=>{
                 $(".rest-pic").attr("src", "");
             };
 
+            // ========== Zomato Cuisine Information
+
             let nearbyZomato;
 
             const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${searchLat}&lon=${searchLon}&sort=real_distance&apikey=${zomatoKey}&start=0&count=100`;
-                // console.log(zomUrl)
+                
             $.getJSON(zomUrl,(zomData)=>{
                 nearbyZomato = zomData.restaurants;     
                 
