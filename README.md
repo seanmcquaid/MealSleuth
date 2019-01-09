@@ -145,6 +145,9 @@ This project is a front-end only application designed to search for certain rest
 
 ## Screenshots
 * Search Results (Desktop)
+
 ![Results Desktop](./readme/desktop_results.png)
+
 * Search Results (Mobile)
+
 ![Results Mobile](./readme/mobile_results.png)
