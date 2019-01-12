@@ -43,36 +43,53 @@ $('.search-form').submit((e)=>{
              let searchLat;
              let searchLon;
              let searchCoordinates;
-             $.getJSON(addressToCordinatesUrl,(coridinateData)=>{   
-                 searchLat =  coridinateData.results[0].geometry.location.lat;
-                 searchLon =  coridinateData.results[0].geometry.location.lng;
-                 searchCoordinates = `${searchLat},${searchLon}`;
+             $.getJSON(addressToCordinatesUrl,(cooridinateData)=>{   
+                 searchLat =  cooridinateData.results[0].geometry.location.lat;
+                 searchLon =  cooridinateData.results[0].geometry.location.lng;
+                //  searchCoordinates = `${searchLat},${searchLon}`;
 
                  // Assemble Nearby Search Url
                  // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
  
-                 const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchCoordinates}&language=${language}&opennow;`
+                //  const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchLat},${searchLon}&language=${language}&opennow;`
                 //  console.log(googleUrl)
 
 
 
-    // ================= Get location id from Nearby Serach URL – First Result
+    // ================= Get location id from Nearby Search URL – First Result
     let directionsURL;
-    $.getJSON(googleUrl,(searchData)=>{
-
+    var request = {
+        language: language,
+        minprice: price,
+        maxprice: price,
+        type: type,
+        rankby:rankby,
+        location:new google.maps.LatLng(searchLat, searchLon),
+        language: language,
+        opennow:true,
+        radius: 10000     
+      };
+      
+      var service = new google.maps.places.PlacesService(document.createElement('div'));
+      service.nearbySearch(request,(searchData)=>{
+          console.log(searchData);
         // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
-        const nearbySearchLength = (searchData.results).length;
+        const nearbySearchLength = searchData.length;
         const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
-        const placeId = searchData.results[nearbySearchNumber].place_id;
-
+        const placeId = searchData[nearbySearchNumber].place_id;
+        console.log(searchData[nearbySearchNumber].geometry.location);
         // Calculate Place Location (to get distance variable further below)
-        const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
-        const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
+        const placeLat = searchData[nearbySearchNumber].geometry.location.lat;
+        console.log(placeLat);
+        const placeLon = searchData[nearbySearchNumber].geometry.location.lng;
+        console.log(placeLon);
         const placeLocation = `${placeLat},${placeLon}`;
-        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCoordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;
-        directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/`;
+        // console.log(placeLocation);
+        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchLat},${searchLon}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;
+        directionsURL =  `https://www.google.com/maps/dir/${searchLat},${searchLon}/${placeLocation}/`;
          $(".visit-link").attr("href", directionsURL);
         $.getJSON(distanceUrl,(distInMiles)=>{
+            // console.log(distInMiles);
         const placeDistance = distInMiles.rows[0].elements[0].distance.text;
         $(".distance").html(`${placeDistance}`);
         });
