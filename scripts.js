@@ -28,89 +28,92 @@ $('.search-form').submit((e)=>{
      // ================== Generate Parameters for Google Nearby Search URL
         
          const searchType = "nearbysearch"
-         const language = "en"
-         const price = $('.input-price').val();
-         const type = "restaurant"
-         const rankby = "distance" 
+         const dirLanguage = "en"
+         const dirPrice = $('.input-price').val();
+         const dirType = "restaurant"
+         const dirRankby = "distance" 
          
          // ================== Get Search Location Lat and Lon
          const myLocation = $('.input-location').val();
+        //  console.log(myLocation);
              const myLocationComma = myLocation.replace(/,/g,"");
              const myLocFinalFormat = myLocationComma.replace(/ /g,"+")
              
-             const addressToCordinatesUrl=`https://maps.googleapis.com/maps/api/geocode/json?address=${myLocFinalFormat}&key=${placesKey}`;
+             const addressToCordinatesUrl=`https://maps.googleapis.com/maps/api/geocode/json?address=${myLocFinalFormat}&key=${placesKey}`    
+            //  console.log(addressToCordinatesUrl)
              
              let searchLat;
              let searchLon;
              let searchCoordinates;
-             $.getJSON(addressToCordinatesUrl,(cooridinateData)=>{   
-                 searchLat =  cooridinateData.results[0].geometry.location.lat;
-                 searchLon =  cooridinateData.results[0].geometry.location.lng;
-                //  searchCoordinates = `${searchLat},${searchLon}`;
+             $.getJSON(addressToCordinatesUrl,(coridinateData)=>{   
+                 searchLat =  coridinateData.results[0].geometry.location.lat;
+                 searchLon =  coridinateData.results[0].geometry.location.lng;
+                 searchCoordinates ={lat: Number.parseFloat(searchLat), lng: Number.parseFloat(searchLon)}
+                //  console.log(searchCordinates)
 
                  // Assemble Nearby Search Url
                  // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
  
-                //  const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${price}&maxprice=${price}&type=${type}&rankby=${rankby}&location=${searchLat},${searchLon}&language=${language}&opennow;`
-                //  console.log(googleUrl)
+                 const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${dirPrice}&maxprice=${dirPrice}&type=${dirType}&rankby=${dirRankby}&location=${searchLat},${searchLon}&language=${dirLanguage}&opennow;`
+                 
+                // console.log(googleUrl)
 
 
-
-    // ================= Get location id from Nearby Search URL – First Result
+    // ================= Get location id from Nearby Serach URL – First Result
     let directionsURL;
-    var request = {
-        language: language,
-        minprice: price,
-        maxprice: price,
-        type: type,
-        rankby:rankby,
-        location:new google.maps.LatLng(searchLat, searchLon),
-        language: language,
+    let request = {
+        language: dirLanguage,
+        minprice: dirPrice,
+        maxprice: dirPrice,
+        type: dirType,
+        rankby:dirRankby,
+        location: searchCoordinates,
+        language: dirLanguage,
         opennow:true,
-        radius: 10000     
+        radius: 1000
+        
+        
       };
-      
-      var service = new google.maps.places.PlacesService(document.createElement('div'));
+
+      let service = new google.maps.places.PlacesService(document.createElement('div'));
       service.nearbySearch(request,(searchData)=>{
-          console.log(searchData);
+        console.log(searchData);
         // Get Random Number Based on googleUrl results to make sure we get a unique rest. each search
-        const nearbySearchLength = searchData.length;
+        const nearbySearchLength = (searchData).length;
         const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
         const placeId = searchData[nearbySearchNumber].place_id;
-        console.log(searchData[nearbySearchNumber].geometry.location);
         // Calculate Place Location (to get distance variable further below)
-        const placeLat = searchData[nearbySearchNumber].geometry.location.lat;
-        console.log(placeLat);
-        const placeLon = searchData[nearbySearchNumber].geometry.location.lng;
-        console.log(placeLon);
+        const placeLat = searchData[nearbySearchNumber].geometry.location.lat();
+        const placeLon = searchData[nearbySearchNumber].geometry.location.lng();
         const placeLocation = `${placeLat},${placeLon}`;
-        // console.log(placeLocation);
-        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchLat},${searchLon}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;
+        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchLat},${searchLon}&destinations=${placeLocation}&language=${dirLanguage}&key=${distanceKey}`;
         directionsURL =  `https://www.google.com/maps/dir/${searchLat},${searchLon}/${placeLocation}/`;
+        console.log(directionsURL)
          $(".visit-link").attr("href", directionsURL);
-        $.getJSON(distanceUrl,(distInMiles)=>{
-            // console.log(distInMiles);
-        const placeDistance = distInMiles.rows[0].elements[0].distance.text;
-        $(".distance").html(`${placeDistance}`);
-        });
+        // $.getJSON(distanceUrl,(distInMiles)=>{
+        //     console.log(distInMiles);
+        // const placeDistance = distInMiles.rows[0].elements[0].distance.text;
+        // $(".distance").html(`${placeDistance}`);
+        // });
 
-        // ==================================================== Assemble Details URL
-        const detailsUrl = `${googlePlaceUrl}/details/json?placeid=${placeId}&key=${placesKey}&fields=name,formatted_address,rating,website,price_level,review,photos`;
-        
         // ================= Pull Details URL Data
+        detailsRequest = {
+            placeId: placeId,
+            fields: ["name", "website", "formatted_address", "rating", "price_level", "reviews", "photos"]
+          };
 
-        $.getJSON(detailsUrl,(searchDetails)=>{
-            
-            const restName = searchDetails.result.name;
+        service.getDetails(detailsRequest, (searchDetails)=>{
+            console.log(searchDetails);
+            const restName = searchDetails.name;
             $(".result-name").html(`${restName}`);
-            const website = searchDetails.result.website;
+            const website = searchDetails.website;
             $(".result-site").html(`<a class="site-link" href="${website}">Website</a>`);
-            const address = searchDetails.result.formatted_address;
+            const address = searchDetails.formatted_address;
             $(".result-add").html(`${address}`);
-            let restRating = searchDetails.result.rating;
+            let restRating = searchDetails.rating;
             restRating = ratingConversion(restRating);
             $(".main-score").html(`${restRating}`);
-            const priceLevel = searchDetails.result.price_level;
+            const priceLevel = searchDetails.price_level;
             let priceDescription;
             if (priceLevel == 1){
                 priceDescription = "$10 and Under";
@@ -129,15 +132,15 @@ $('.search-form').submit((e)=>{
             // Create Random Number based on number of review length
             // This lets pull a different review every time
             let reviewsLength,reviewsNumber,reviewUserName,reviewRating,reviewText;
-            if(searchDetails.result.reviews){
-                reviewsLength = (searchDetails.result.reviews).length;
+            if(searchDetails.reviews){
+                reviewsLength = searchDetails.reviews.length;
                 reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength)));
-                reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name || '';
+                reviewUserName = searchDetails.reviews[reviewsNumber].author_name || '';
                 $(".review-username").html(`${reviewUserName}`);
-                reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
+                reviewRating = searchDetails.reviews[reviewsNumber].rating;
                 reviewRating = ratingConversion(reviewRating);
                 $(".review-score").html(`${reviewRating}`);
-                reviewText = searchDetails.result.reviews[reviewsNumber].text;
+                reviewText = searchDetails.reviews[reviewsNumber].text;
                 $(".review-text").html(`${reviewText}`);
             } else{
                 $(".review-username").html("None available");
@@ -148,24 +151,21 @@ $('.search-form').submit((e)=>{
             // ================== Rest Photo
 
             // Create Random Number based on number of photos results length, just like for reviews
-            let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
-            if((searchDetails.result.photos)){
-                photoLength = (searchDetails.result.photos).length;
+            let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl, photoLink;
+            if((searchDetails.photos)){
+                photoLength = (searchDetails.photos).length;
                 photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
-                photoRef = searchDetails.result.photos[photoNumber].photo_reference;
-                photoWidth = searchDetails.result.photos[photoNumber].width
-                restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
-                $(".rest-pic").attr("src", `${restPhotoUrl}`);
-            } else {
-                $(".rest-pic").attr("src", "./images/placeholderimg.png");
+                // photoRef = searchDetails.photos[photoNumber].photo_reference;
+                // photoWidth = searchDetails.photos[photoNumber].width;
+                photoLink = searchDetails.photos[photoNumber].getUrl();
+                // restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
+                $(".rest-pic").attr("src", photoLink);
             };
-
-            // ========== Zomato Cuisine Information
 
             let nearbyZomato;
 
             const zomUrl = `https://developers.zomato.com/api/v2.1/search?lat=${searchLat}&lon=${searchLon}&sort=real_distance&apikey=${zomatoKey}&start=0&count=100`;
-                
+                // console.log(zomUrl)
             $.getJSON(zomUrl,(zomData)=>{
                 nearbyZomato = zomData.restaurants;     
                 
