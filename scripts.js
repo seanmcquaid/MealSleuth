@@ -49,30 +49,22 @@ $('.search-form').submit((e)=>{
                  searchLat =  coridinateData.results[0].geometry.location.lat;
                  searchLon =  coridinateData.results[0].geometry.location.lng;
                  searchCoordinates ={lat: Number.parseFloat(searchLat), lng: Number.parseFloat(searchLon)}
-                //  console.log(searchCordinates)
 
-                 // Assemble Nearby Search Url
-                 // The parameters needed for nearby search = api key, minprice, type, rankyby, location, language, opennow
- 
-                 const googleUrl = `${googlePlaceUrl}/${searchType}/json?key=${placesKey}&minprice=${dirPrice}&maxprice=${dirPrice}&type=${dirType}&rankby=${dirRankby}&location=${searchLat},${searchLon}&language=${dirLanguage}&opennow;`
-                 
-                // console.log(googleUrl)
+            
 
 
     // ================= Get location id from Nearby Serach URL – First Result
     let directionsURL;
     let request = {
         language: dirLanguage,
-        minprice: dirPrice,
-        maxprice: dirPrice,
+        minPriceLevel: dirPrice,
+        maxPriceLevel: dirPrice,
         type: dirType,
         rankby:dirRankby,
         location: searchCoordinates,
         language: dirLanguage,
         opennow:true,
         radius: 1000
-        
-        
       };
 
       let service = new google.maps.places.PlacesService(document.createElement('div'));
