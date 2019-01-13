@@ -114,6 +114,8 @@ This project is a front-end only application designed to search for certain rest
         };
     });
     ```
+* CORS issues that we discovered upon deploying
+    
 
 ## MVP
 * Create a basic front-end application that can search for the nearest restaurants from any given location.
