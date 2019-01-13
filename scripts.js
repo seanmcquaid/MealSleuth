@@ -63,7 +63,6 @@ $('.search-form').submit((e)=>{
                 const nearbySearchLength = (searchData).length;
                 const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
                 const placeId = searchData[nearbySearchNumber].place_id;
-                // Calculate Place Location (to get distance variable further below)
                 const placeLat = searchData[nearbySearchNumber].geometry.location.lat();
                 const placeLon = searchData[nearbySearchNumber].geometry.location.lng();
                 const placeLocation = `${placeLat},${placeLon}`;
@@ -77,10 +76,8 @@ $('.search-form').submit((e)=>{
                 travelMode: "DRIVING",
                 };
                 distanceService.getDistanceMatrix(distanceRequest, (distanceDetails)=>{
-                console.log(distanceDetails);
-                const distanceText = distanceDetails.rows[0].elements[0].distance.text;
-                console.log(distanceText);
-                $(".distance").html(`${distanceText}`);
+                    const distanceText = distanceDetails.rows[0].elements[0].distance.text;
+                    $(".distance").html(`${distanceText}`);
                 });
 
         // ================= Pull Details URL Data
