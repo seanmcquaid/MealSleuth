@@ -155,10 +155,7 @@ $('.search-form').submit((e)=>{
             if((searchDetails.photos)){
                 photoLength = (searchDetails.photos).length;
                 photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
-                // photoRef = searchDetails.photos[photoNumber].photo_reference;
-                // photoWidth = searchDetails.photos[photoNumber].width;
                 photoLink = searchDetails.photos[photoNumber].getUrl();
-                // restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
                 $(".rest-pic").attr("src", photoLink);
             };
 
