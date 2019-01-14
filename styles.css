@@ -349,12 +349,11 @@ input:focus, select:focus{
 
 .footer{
     background-color:#282421;
+    position: absolute;
     text-align:center;
     padding:1.5rem 0;
     bottom:0;
     width:100%;
-    position: relative;
-    margin-top:2rem;
 }
 
 .footer span{
@@ -594,29 +593,5 @@ input:focus, select:focus{
 @media screen and (min-width:64rem) and (min-height:42rem){
     .page-body{
         min-height:85vh;
-    }
-
-    .footer{
-        position:static;
-    }
-}
-
-@media screen and (width:414px) and (height:736px){ /* iPhone 6/7/8 Plus Fix for Footer */
-    .footer{
-        position:absolute;
-        bottom:0;
-    }
-}
-
-@media screen and (width:375px) and (height:812px){ /* iPhone X Fix for Footer */
-    .footer{
-        position:absolute;
-        bottom:0;
-    }
-}
-
-@media screen and (width:1024px) and (height:1366px){ /* iPad Pro Fix for Results*/
-    .main-content{
-        flex-direction:column;
     }
 }
