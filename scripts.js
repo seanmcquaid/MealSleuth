@@ -20,6 +20,8 @@ if (navigator.geolocation) {
 $('.search-form').submit((e)=>{
     e.preventDefault();
 
+    $(".search-box").css("margin-bottom", 0);
+
      // ================== Generate Parameters for Google Nearby Search URL
         
         const dirLanguage = "en";
@@ -247,7 +249,3 @@ function ratingConversion(rating){
         return '<i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
     }
 };
-
-// ======= Footer fix
-
-// take away bottom margin on submit to 0 
