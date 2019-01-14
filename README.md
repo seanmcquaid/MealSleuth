@@ -40,16 +40,39 @@ This project is a front-end only application designed to search for certain rest
 
     ```
     let directionsURL;
-    $.getJSON(googleUrl,(searchData)=>{
-        const nearbySearchLength = (searchData.results).length;
+    let request = {
+        language: dirLanguage,
+        minPriceLevel: dirPrice,
+        maxPriceLevel: dirPrice,
+        type: dirType,
+        rankby:dirRankby,
+        location: searchCoordinates,
+        language: dirLanguage,
+        opennow:true,
+        radius: 1000
+    };
+    let service = new google.maps.places.PlacesService(document.createElement('div'));
+    service.nearbySearch(request,(searchData)=>{
+        // Get Random Number Based on length of searchData to make sure we get a unique rest. each search
+        const nearbySearchLength = (searchData).length;
         const nearbySearchNumber = (Math.floor(Math.random() * Math.floor(nearbySearchLength)));
-        const placeId = searchData.results[nearbySearchNumber].place_id;
-        const placeLat = searchData.results[nearbySearchNumber].geometry.location.lat;
-        const placeLon = searchData.results[nearbySearchNumber].geometry.location.lng;
+        const placeId = searchData[nearbySearchNumber].place_id;
+        const placeLat = searchData[nearbySearchNumber].geometry.location.lat();
+        const placeLon = searchData[nearbySearchNumber].geometry.location.lng();
         const placeLocation = `${placeLat},${placeLon}`;
-        const distanceUrl = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${searchCoordinates}&destinations=${placeLocation}&language=${language}&key=${distanceKey}`;
-        directionsURL =  `https://www.google.com/maps/dir/${searchCoordinates}/${placeLocation}/`;
+        directionsURL =  `https://www.google.com/maps/dir/${searchLat},${searchLon}/${placeLocation}/`;
         $(".visit-link").attr("href", directionsURL);
+        let distanceService = new google.maps.DistanceMatrixService();
+        let distanceRequest = {
+        origins: [searchObject],
+        destinations: [placeLocation],
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
+        travelMode: "DRIVING",
+        };
+        distanceService.getDistanceMatrix(distanceRequest, (distanceDetails)=>{
+            const distanceText = distanceDetails.rows[0].elements[0].distance.text;
+            $(".distance").html(`${distanceText}`);
+        });
         ...
     });
     ```
@@ -58,33 +81,29 @@ This project is a front-end only application designed to search for certain rest
 
     ```
     let reviewsLength,reviewsNumber,reviewUserName,reviewRating,reviewText;
-        if(searchDetails.result.reviews){
-            reviewsLength = (searchDetails.result.reviews).length;
-            reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength)));
-            reviewUserName = searchDetails.result.reviews[reviewsNumber].author_name || '';
-            $(".review-username").html(`${reviewUserName}`);
-            reviewRating = searchDetails.result.reviews[reviewsNumber].rating;
-            reviewRating = ratingConversion(reviewRating);
-            $(".review-score").html(`${reviewRating}`);
-            reviewText = searchDetails.result.reviews[reviewsNumber].text;
-            $(".review-text").html(`${reviewText}`);
-        } else{
-            $(".review-username").html("None available");
-            $(".review-score").html("None available");
-            $(".review-text").html("None available");
-        };
+    if(searchDetails.reviews){
+        reviewsLength = searchDetails.reviews.length;
+        reviewsNumber = (Math.floor(Math.random() * Math.floor(reviewsLength)));
+        reviewUserName = searchDetails.reviews[reviewsNumber].author_name || '';
+        $(".review-username").html(`${reviewUserName}`);
+        reviewRating = searchDetails.reviews[reviewsNumber].rating;
+        reviewRating = ratingConversion(reviewRating);
+        $(".review-score").html(`${reviewRating}`);
+        reviewText = searchDetails.reviews[reviewsNumber].text;
+        $(".review-text").html(`${reviewText}`);
+    } else{
+        $(".review-username").html("None available");
+        $(".review-score").html("None available");
+        $(".review-text").html("None available");
+    };
 
-        let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl;
-        if((searchDetails.result.photos)){
-            photoLength = (searchDetails.result.photos).length;
-            photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
-            photoRef = searchDetails.result.photos[photoNumber].photo_reference;
-            photoWidth = searchDetails.result.photos[photoNumber].width
-            restPhotoUrl = `${googlePlaceUrl}/photo?maxwidth=${photoWidth}&photoreference=${photoRef}&key=${placesKey}`
-            $(".rest-pic").attr("src", `${restPhotoUrl}`);
-        } else {
-            $(".rest-pic").attr("src", "./images/placeholderimg.png");
-        };
+    let photoLength, photoNumber, photoRef, photoWidth, restPhotoUrl, photoLink;
+    if((searchDetails.photos)){
+        photoLength = (searchDetails.photos).length;
+        photoNumber = (Math.floor(Math.random() * Math.floor(photoLength)));
+        photoLink = searchDetails.photos[photoNumber].getUrl();
+        $(".rest-pic").attr("src", photoLink);
+    };
     ```
 
     We did this because our main code would continually break once the undefined values were passed into it. Once this issue was solved, the majority of return issues we were dealing with were taken care of.
@@ -115,6 +134,25 @@ This project is a front-end only application designed to search for certain rest
     });
     ```
 * CORS issues that we discovered upon deploying
+    Once we actually deployed our application on AWS, we discovered that we had almost all of our Google API calls had triggered CORS issues. Upon this discovery, we had to go back and redo almost all of our JSON calls and redo them following Google's documentation on the different calls we were looking to do but utilizing our own custom requests for the information we needed the data to return. 
+    For Example:
+    ```
+    let request = {
+    language: dirLanguage,
+    minPriceLevel: dirPrice,
+    maxPriceLevel: dirPrice,
+    type: dirType,
+    rankby:dirRankby,
+    location: searchCoordinates,
+    language: dirLanguage,
+    opennow:true,
+    radius: 1000
+    };
+
+    let service = new google.maps.places.PlacesService(document.createElement('div'));
+    service.nearbySearch(request,(searchData)=>{
+    ...
+    ```
     
 
 ## MVP
@@ -134,7 +172,7 @@ This project is a front-end only application designed to search for certain rest
 ## Authors
 * Sean McQuaid
     * Contributions:
-        * Concept, Project Management, Google Places API Implementation, Zomato API Implementation, Responsive Design, Dealing with Undefined Values, Finding Cuisine Type
+        * Concept, Project Management, Google Places API Implementation, Zomato API Implementation, Responsive Design, Dealing with Undefined Values, Finding Cuisine Type, Resolving CORS Issues
     * [GitHub Profile](https://github.com/seanmcquaid)
 * Greg Roques
     * Contributions:
