@@ -89,7 +89,7 @@ input:focus, select:focus{
 }
 
 .search-box{
-    margin:0.75rem auto 0;
+    margin:0.75rem auto 5.6rem;
     width:86%;
     min-width:14rem;
     max-width:30rem;
@@ -349,9 +349,9 @@ input:focus, select:focus{
 
 .footer{
     background-color:#282421;
-    position: absolute;
+    position: fixed;
     text-align:center;
-    padding:1.5rem 0;
+    padding:1.25rem 0;
     bottom:0;
     width:100%;
 }
@@ -359,7 +359,7 @@ input:focus, select:focus{
 .footer span{
     color:#fff;
     font-family:'Montserrat', sans-serif;
-    font-weight:500;
+    font-weight:300;
 }
 
 /* Animations */

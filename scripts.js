@@ -247,3 +247,7 @@ function ratingConversion(rating){
         return '<i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i>';
     }
 };
+
+// ======= Footer fix
+
+// take away bottom margin on submit to 0 
