@@ -12,7 +12,7 @@
     * Screenshots
 
 ## Description
-This project is a front-end only application designed to search for certain restaurants based on user input for location and price range. The application returns a result that matches the user's input and renders it within the browser. The user can then get directions to the resulting location via Google Maps.
+MealSleuth is a front-end only application designed to search for certain restaurants based on user input for location and price range. The application returns a result that matches the user's input and renders it within the browser. The user can then get directions to the resulting location via Google Maps.
 
 ### Features
 * Finds results using location and price range as criteria
